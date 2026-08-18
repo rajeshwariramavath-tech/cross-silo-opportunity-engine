@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Cross-Silo Opportunity Engine — Pipeline Report</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root {
+    --page-bg: #FAFAF8;
+    --card-bg: #FFFFFF;
+    --border: #E3E1DA;
+    --text: #2B2A28;
+    --muted: #746F66;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 40px 24px 80px;
+    background: var(--page-bg);
+    color: var(--text);
+    font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+  }
+  .container { max-width: 1180px; margin: 0 auto; }
+  header.page-header { text-align: center; margin-bottom: 32px; }
+  header.page-header h1 { font-size: 1.9rem; margin: 0 0 6px; }
+  header.page-header p { color: var(--muted); margin: 0; font-size: 0.95rem; }
+
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin-bottom: 32px;
+  }
+  .diagram-card { text-align: center; padding: 16px; }
+  .diagram-card img { max-width: 100%; height: auto; border-radius: 6px; }
+  .diagram-card figcaption { color: var(--muted); font-size: 0.85rem; margin-top: 10px; }
+
+  .opportunities-card { border-top: 4px solid #C1531F; }
+  .opportunities-card h2 { color: #A8431B; }
+  .governance-card { border-top: 4px solid #4A3F91; }
+  .governance-card h2 { color: #3D3480; }
+
+  section h2 { font-size: 1.25rem; margin: 0 0 4px; }
+  section .section-note { color: var(--muted); font-size: 0.9rem; margin: 0 0 16px; }
+
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 14px;
+    margin-bottom: 36px;
+  }
+  .stat-card {
+    border: 1px solid;
+    border-radius: 10px;
+    padding: 16px;
+    text-align: center;
+  }
+  .stat-value { font-size: 1.8rem; font-weight: 700; }
+  .stat-label { font-size: 0.85rem; font-weight: 600; margin-top: 2px; }
+  .stat-sub { font-size: 0.75rem; color: var(--muted); margin-top: 4px; }
+
+  table.report-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.87rem;
+  }
+  .report-table th, .report-table td {
+    padding: 9px 10px;
+    border-bottom: 1px solid var(--border);
+    text-align: left;
+    white-space: nowrap;
+  }
+  .report-table thead th {
+    background: #F4F3EF;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: var(--muted);
+  }
+  .rank-cell { color: var(--muted); font-variant-numeric: tabular-nums; }
+  .score-cell { font-weight: 700; }
+  .entity-cell { display: flex; flex-direction: column; white-space: normal; min-width: 150px; }
+  .lineage-note { font-size: 0.72rem; color: var(--muted); font-family: ui-monospace, Consolas, monospace; }
+
+  .table-scroll { overflow-x: auto; }
+  .governance-table .group-shared { background: #F4F3EF; color: var(--muted); }
+  .governance-table .group-financing { background: #E3F6EE; color: #0E6B4A; }
+  .governance-table .group-broker { background: #FCEADD; color: #A8431B; }
+  .governance-table .group-row th {
+    text-align: center;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    border-bottom: none;
+  }
+  .governance-table td.financing-cell { background: #E3F6EE44; border-left: 2px solid #1F8A63; }
+  .governance-table td.broker-cell { background: #FCEADD66; border-left: 2px solid #C1531F; }
+  .governance-table td.shared-cell { color: var(--muted); }
+  .restricted {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: #B33A3A;
+    opacity: 0.75;
+  }
+
+  footer { text-align: center; color: var(--muted); font-size: 0.8rem; margin-top: 40px; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header class="page-header">
+    <h1>Cross-Silo Opportunity Engine</h1>
+    <p>Pipeline report · generated 2026-08-18 23:19 UTC</p>
+  </header>
+
+  <figure class="card diagram-card">
+    <img src="architecture.png" alt="Cross-silo opportunity engine end-to-end architecture diagram">
+    <figcaption>Four-stage architecture this run followed - see <a href="architecture.md">architecture.md</a> for the full design.</figcaption>
+  </figure>
+
+  <section id="summary">
+    <h2>Run summary</h2>
+    <p class="section-note">Counts from the CSVs in data/processed/, produced by the most recent pipeline run.</p>
+    <section class="stats-row">
+    <div class="stat-card" style="background:#E3F6EE;border-color:#1F8A63">
+      <div class="stat-value" style="color:#0E6B4A">54</div>
+      <div class="stat-label">Canonical Records</div>
+      <div class="stat-sub">27 sales · 27 debt</div>
+    </div>
+    <div class="stat-card" style="background:#FCE4E1;border-color:#B33A3A">
+      <div class="stat-value" style="color:#A13030">6</div>
+      <div class="stat-label">Ingestion Rejects</div>
+      <div class="stat-sub">flagged, not dropped</div>
+    </div>
+    <div class="stat-card" style="background:#E3F6EE;border-color:#1F8A63">
+      <div class="stat-value" style="color:#0E6B4A">12</div>
+      <div class="stat-label">Auto-Match</div>
+      <div class="stat-sub">of 729 pairs scored</div>
+    </div>
+    <div class="stat-card" style="background:#FBF0D3;border-color:#A67C00">
+      <div class="stat-value" style="color:#7A5C00">49</div>
+      <div class="stat-label">Review Queue</div>
+      <div class="stat-sub">ambiguous, sent to a human</div>
+    </div>
+    <div class="stat-card" style="background:#FCE4E1;border-color:#B33A3A">
+      <div class="stat-value" style="color:#A13030">668</div>
+      <div class="stat-label">Auto-Reject</div>
+      <div class="stat-sub">confidently not a match</div>
+    </div>
+    <div class="stat-card" style="background:#FCEADD;border-color:#C1531F">
+      <div class="stat-value" style="color:#A8431B">10</div>
+      <div class="stat-label">Opportunities</div>
+      <div class="stat-sub">of 12 resolved matches</div>
+    </div></section>
+  </section>
+
+  <section class="card opportunities-card">
+    <h2>Ranked opportunities</h2>
+    <p class="section-note">Every field, unrestricted - the full admin-equivalent view, in the pipeline's own rank order.</p>
+    
+    <table class="report-table">
+      <thead><tr><th>Entity Name</th><th>Property Type</th><th>Sale Price</th><th>Loan Amount</th><th>Maturity Date</th><th>Notes</th><th>Confidence</th><th>Fired Rules</th><th>Score</th></tr></thead>
+      <tbody><tr><td class='rank-cell'>1</td><td class='entity-cell'>Silverline Capital<span class='lineage-note'>SR-1003 · DBT-2024-003</span></td><td>Office</td><td>$7,600,000</td><td>$4,900,000</td><td>2031-03-01</td><td>past due 30 days</td><td>0.98</td><td>High Value Deal, Loan Past Due, Strong Relationship Match</td><td class='score-cell'>6</td></tr><tr><td class='rank-cell'>2</td><td class='entity-cell'>Silverline Capital<span class='lineage-note'>SR-1003 · DBT-2024-030</span></td><td>Office</td><td>$7,600,000</td><td>$4,900,000</td><td>2031-03-01</td><td>past due 30 days</td><td>0.98</td><td>High Value Deal, Loan Past Due, Strong Relationship Match</td><td class='score-cell'>6</td></tr><tr><td class='rank-cell'>3</td><td class='entity-cell'>Bluepeak Realty Trust<span class='lineage-note'>SR-1006 · DBT-2024-006</span></td><td>Retail</td><td>$9,100,000</td><td>$5,500,000</td><td>2028-01-05</td><td>—</td><td>1.00</td><td>High Value Deal, Loan Maturing Soon, Strong Relationship Match</td><td class='score-cell'>5</td></tr><tr><td class='rank-cell'>4</td><td class='entity-cell'>Pinnacle Office Trust<span class='lineage-note'>SR-1011 · DBT-2024-011</span></td><td>Office</td><td>$8,900,000</td><td>$6,700,000</td><td>2031-06-02</td><td>—</td><td>1.00</td><td>High Value Deal, Strong Relationship Match</td><td class='score-cell'>3</td></tr><tr><td class='rank-cell'>5</td><td class='entity-cell'>Crestpoint Industrial Partners<span class='lineage-note'>SR-1005 · DBT-2024-005</span></td><td>Industrial</td><td>$5,300,000</td><td>$3,600,000</td><td>2030-02-28</td><td>—</td><td>0.99</td><td>High Value Deal, Strong Relationship Match</td><td class='score-cell'>3</td></tr><tr><td class='rank-cell'>6</td><td class='entity-cell'>Redwood Multifamily Group<span class='lineage-note'>SR-1012 · DBT-2024-012</span></td><td>Multifamily</td><td>$11,200,000</td><td>$8,100,000</td><td>2030-02-08</td><td>—</td><td>0.99</td><td>High Value Deal, Strong Relationship Match</td><td class='score-cell'>3</td></tr><tr><td class='rank-cell'>7</td><td class='entity-cell'>Oakwood Retail Partners<span class='lineage-note'>SR-1002 · DBT-2024-002</span></td><td>Retail</td><td>$1,850,000</td><td>$1,200,000</td><td>2027-02-15</td><td>—</td><td>0.99</td><td>Loan Maturing Soon, Strong Relationship Match</td><td class='score-cell'>3</td></tr><tr><td class='rank-cell'>8</td><td class='entity-cell'>Delta Ridge Ventures<span class='lineage-note'>SR-1009 · DBT-2024-009</span></td><td>Retail</td><td>$2,100,000</td><td>$1,450,000</td><td>2027-05-09</td><td>—</td><td>0.98</td><td>Loan Maturing Soon, Strong Relationship Match</td><td class='score-cell'>3</td></tr><tr><td class='rank-cell'>9</td><td class='entity-cell'>Northgate Logistics<span class='lineage-note'>SR-1008 · DBT-2024-008</span></td><td>Industrial</td><td>$6,250,000</td><td>$3,950,000</td><td>2029-03-11</td><td>—</td><td>0.98</td><td>High Value Deal, Strong Relationship Match</td><td class='score-cell'>3</td></tr><tr><td class='rank-cell'>10</td><td class='entity-cell'>Cornerstone Retail Fund<span class='lineage-note'>SR-1010 · DBT-2024-010</span></td><td>Retail</td><td>$4,750,000</td><td>$2,900,000</td><td>2029-01-22</td><td>—</td><td>1.00</td><td>Strong Relationship Match</td><td class='score-cell'>1</td></tr></tbody>
+    </table>
+  </section>
+
+  <section class="card governance-card" id="governance">
+    <h2>Governance in action: financing vs. broker</h2>
+    <p class="section-note">
+      Same 10 opportunities, same rank order, run through
+      <code>governance.get_opportunities_for_role()</code> for two different roles. Shared columns
+      (grey) are visible to both; the green columns are financing-only and the rust columns are
+      broker-only - each role's line-of-business detail is invisible to the other, while entity
+      identity, confidence, and the rule outcome stay visible to both. Source record IDs travel
+      with every row regardless of role.
+    </p>
+    
+    <div class="table-scroll">
+    <table class="report-table governance-table">
+      <thead><tr class='group-row'><th colspan='2'></th><th colspan='4' class='group-shared'>Both roles see</th><th colspan='6' class='group-financing'>Financing sees</th><th colspan='3' class='group-broker'>Broker sees</th></tr><tr><th>Rank</th><th>Entity</th><th>Property Type</th><th>Confidence</th><th>Fired Rules</th><th>Score</th><th>Loan Amount</th><th>Orig. Date</th><th>Maturity Date</th><th>Lender</th><th>Loan Type</th><th>Notes</th><th>Sale Price</th><th>Close Date</th><th>Broker</th></tr></thead>
+      <tbody><tr><td class='rank-cell'>1</td><td class='entity-cell'>Silverline Capital<span class='lineage-note'>SR-1003 · DBT-2024-003</span></td><td class='shared-cell'>Office</td><td class='shared-cell'>0.98</td><td class='shared-cell'>High Value Deal, Loan Past Due, Strong Relationship Match</td><td class='shared-cell'>6</td><td class='financing-cell'>$4,900,000</td><td class='financing-cell'>03/01/2024</td><td class='financing-cell'>2031-03-01</td><td class='financing-cell'>Republic Trust Bank</td><td class='financing-cell'>Term Loan</td><td class='financing-cell'>past due 30 days</td><td class='broker-cell'>$7,600,000</td><td class='broker-cell'>March 22, 2024</td><td class='broker-cell'>—</td></tr><tr><td class='rank-cell'>2</td><td class='entity-cell'>Silverline Capital<span class='lineage-note'>SR-1003 · DBT-2024-030</span></td><td class='shared-cell'>Office</td><td class='shared-cell'>0.98</td><td class='shared-cell'>High Value Deal, Loan Past Due, Strong Relationship Match</td><td class='shared-cell'>6</td><td class='financing-cell'>$4,900,000</td><td class='financing-cell'>03/01/2024</td><td class='financing-cell'>2031-03-01</td><td class='financing-cell'>Republic Trust Bank</td><td class='financing-cell'>Term Loan</td><td class='financing-cell'>past due 30 days</td><td class='broker-cell'>$7,600,000</td><td class='broker-cell'>March 22, 2024</td><td class='broker-cell'>—</td></tr><tr><td class='rank-cell'>3</td><td class='entity-cell'>Bluepeak Realty Trust<span class='lineage-note'>SR-1006 · DBT-2024-006</span></td><td class='shared-cell'>Retail</td><td class='shared-cell'>1.00</td><td class='shared-cell'>High Value Deal, Loan Maturing Soon, Strong Relationship Match</td><td class='shared-cell'>5</td><td class='financing-cell'>$5,500,000</td><td class='financing-cell'>01/05/2024</td><td class='financing-cell'>2028-01-05</td><td class='financing-cell'>Lakefront Bank</td><td class='financing-cell'>Refinance</td><td class='financing-cell'>—</td><td class='broker-cell'>$9,100,000</td><td class='broker-cell'>2024-01-19</td><td class='broker-cell'>Derek Wu</td></tr><tr><td class='rank-cell'>4</td><td class='entity-cell'>Pinnacle Office Trust<span class='lineage-note'>SR-1011 · DBT-2024-011</span></td><td class='shared-cell'>Office</td><td class='shared-cell'>1.00</td><td class='shared-cell'>High Value Deal, Strong Relationship Match</td><td class='shared-cell'>3</td><td class='financing-cell'>$6,700,000</td><td class='financing-cell'>06/02/2024</td><td class='financing-cell'>2031-06-02</td><td class='financing-cell'>Pacific Northwest Trust</td><td class='financing-cell'>Term Loan</td><td class='financing-cell'>—</td><td class='broker-cell'>$8,900,000</td><td class='broker-cell'>06/11/2024</td><td class='broker-cell'>Maria Chen</td></tr><tr><td class='rank-cell'>5</td><td class='entity-cell'>Crestpoint Industrial Partners<span class='lineage-note'>SR-1005 · DBT-2024-005</span></td><td class='shared-cell'>Industrial</td><td class='shared-cell'>0.99</td><td class='shared-cell'>High Value Deal, Strong Relationship Match</td><td class='shared-cell'>3</td><td class='financing-cell'>$3,600,000</td><td class='financing-cell'>2024-02-28</td><td class='financing-cell'>2030-02-28</td><td class='financing-cell'>Delta Commercial Credit</td><td class='financing-cell'>Term Loan</td><td class='financing-cell'>—</td><td class='broker-cell'>$5,300,000</td><td class='broker-cell'>04/02/2024</td><td class='broker-cell'>Priya Nair</td></tr><tr><td class='rank-cell'>6</td><td class='entity-cell'>Redwood Multifamily Group<span class='lineage-note'>SR-1012 · DBT-2024-012</span></td><td class='shared-cell'>Multifamily</td><td class='shared-cell'>0.99</td><td class='shared-cell'>High Value Deal, Strong Relationship Match</td><td class='shared-cell'>3</td><td class='financing-cell'>$8,100,000</td><td class='financing-cell'>2024-02-08</td><td class='financing-cell'>2030-02-08</td><td class='financing-cell'>Golden State Credit Union</td><td class='financing-cell'>Refinance</td><td class='financing-cell'>—</td><td class='broker-cell'>$11,200,000</td><td class='broker-cell'>2024-02-27</td><td class='broker-cell'>Derek Wu</td></tr><tr><td class='rank-cell'>7</td><td class='entity-cell'>Oakwood Retail Partners<span class='lineage-note'>SR-1002 · DBT-2024-002</span></td><td class='shared-cell'>Retail</td><td class='shared-cell'>0.99</td><td class='shared-cell'>Loan Maturing Soon, Strong Relationship Match</td><td class='shared-cell'>3</td><td class='financing-cell'>$1,200,000</td><td class='financing-cell'>2024-02-15</td><td class='financing-cell'>2027-02-15</td><td class='financing-cell'>Highline Lending</td><td class='financing-cell'>Bridge Loan</td><td class='financing-cell'>—</td><td class='broker-cell'>$1,850,000</td><td class='broker-cell'>2024-02-01</td><td class='broker-cell'>Maria Chen</td></tr><tr><td class='rank-cell'>8</td><td class='entity-cell'>Delta Ridge Ventures<span class='lineage-note'>SR-1009 · DBT-2024-009</span></td><td class='shared-cell'>Retail</td><td class='shared-cell'>0.98</td><td class='shared-cell'>Loan Maturing Soon, Strong Relationship Match</td><td class='shared-cell'>3</td><td class='financing-cell'>$1,450,000</td><td class='financing-cell'>05/09/2024</td><td class='financing-cell'>2027-05-09</td><td class='financing-cell'>Crescent City Lending</td><td class='financing-cell'>Bridge Loan</td><td class='financing-cell'>—</td><td class='broker-cell'>$2,100,000</td><td class='broker-cell'>05/17/2024</td><td class='broker-cell'>—</td></tr><tr><td class='rank-cell'>9</td><td class='entity-cell'>Northgate Logistics<span class='lineage-note'>SR-1008 · DBT-2024-008</span></td><td class='shared-cell'>Industrial</td><td class='shared-cell'>0.98</td><td class='shared-cell'>High Value Deal, Strong Relationship Match</td><td class='shared-cell'>3</td><td class='financing-cell'>$3,950,000</td><td class='financing-cell'>2024-03-11</td><td class='financing-cell'>2029-03-11</td><td class='financing-cell'>Volunteer State Bank</td><td class='financing-cell'>Construction Loan</td><td class='financing-cell'>—</td><td class='broker-cell'>$6,250,000</td><td class='broker-cell'>2024-05-03</td><td class='broker-cell'>Priya Nair</td></tr><tr><td class='rank-cell'>10</td><td class='entity-cell'>Cornerstone Retail Fund<span class='lineage-note'>SR-1010 · DBT-2024-010</span></td><td class='shared-cell'>Retail</td><td class='shared-cell'>1.00</td><td class='shared-cell'>Strong Relationship Match</td><td class='shared-cell'>1</td><td class='financing-cell'>$2,900,000</td><td class='financing-cell'>2024-01-22</td><td class='financing-cell'>2029-01-22</td><td class='financing-cell'>Gulf Coast Bank</td><td class='financing-cell'>Term Loan</td><td class='financing-cell'>—</td><td class='broker-cell'>$4,750,000</td><td class='broker-cell'>2024-03-29</td><td class='broker-cell'>J. Alvarez</td></tr></tbody>
+    </table>
+    </div>
+  </section>
+
+  <footer>cross-silo-opportunity-engine · generated by scripts/generate_report.py</footer>
+
+</div>
+</body>
+</html>
