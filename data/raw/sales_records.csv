@@ -1,0 +1,31 @@
+deal_id,client_name,property_address,city,state,zip,sale_price,close_date,broker_name,property_type
+SR-1001,Meridian Property Group,"4820 Riverside Dr, Suite 200",Columbus,OH,43215,4200000,03/14/2024,J. Alvarez,Office
+SR-1002,Oakwood Retail Partners,112 Elm Street,Denver,CO,80202,"$1,850,000",2024-02-01,Maria Chen,Retail
+SR-1003,Silverline Capital,900 Congress Ave Fl 12,Austin,TX,78701,7600000,"March 22, 2024",,Office
+SR-1004,HARBORVIEW HOLDINGS,55 Bay St,Boston,MA,02110,,2024-04-10,Tom O'Neill,Office
+SR-1005,Crestpoint Industrial Ptrs,7700 Freight Way,Memphis,TN,38118,5300000,04/02/2024,Priya Nair,Industrial
+SR-1006,Bluepeak Realty Trust,300 Lakeshore Blvd,Chicago,IL,60601,9100000,2024-01-19,Derek Wu,Retail
+SR-1007,Ashford  Commercial Group,18 Peachtree St NW,Atlanta,GA,30303,3400000,01/05/2024,S. Whitfield,Office
+SR-1008,Northgate Logistics,"2200 Airport Rd, Suite 5",Nashville,TN,37217,6250000,2024-05-03,Priya Nair,Industrial
+SR-1009,Delta Ridge Ventures,88 Canal St,New Orleans,LA,70130,2100000,05/17/2024,,Retail
+SR-1010,Cornerstone Retail Fund,410 Westheimer Rd,Houston,TX,77006,4750000,2024-03-29,J. Alvarez,Retail
+SR-1011,Pinnacle Office Trust,601 Union St,Seattle,WA,98101,8900000,06/11/2024,Maria Chen,Office
+SR-1012,redwood multifamily group,245 Fillmore St,San Francisco,CA,94117,11200000,2024-02-27,Derek Wu,Multifamily
+SR-1013,Vantage Point Capital,"1500 SW 1st Ave, Ste 900",Portland,OR,97201,3950000,04/18/2024,Nathan Ford,Office
+SR-1014,Summit Bay Investors,780 Brickell Ave,Miami,FL,33131,6100000,2024-06-02,Elena Ruiz,Retail
+SR-1015,Ironwood Development Co,4400 E Camelback Rd,Phoenix,AZ,85018,2750000,07/09/2024,Nathan Ford,Industrial
+SR-1016,Cascade Urban Partners,1200 K St,Sacramento,CA,95814,,,Elena Ruiz,Multifamily
+SR-1017,Larkspur Holdings,55 W South Temple,Salt Lake City,UT,84101,1650000,03/08/2024,J. Alvarez,Land
+SR-1018,Brightline REIT,201 S Tryon St,Charlotte,NC,28202,5400000,2024-04-22,S. Whitfield,Office
+SR-1019,Foundry Square Partners,"600 Grant St, Fl 3",Pittsburgh,PA,15219,3100000,05/30/2024,Derek Wu,Retail
+SR-1020,Golden Gate Industrial Trust,1250 45th St,Oakland,CA,94608-1234,7800000,2024-01-11,Nathan Ford,Industrial
+SR-1021,Maple Crest Ventures,80 S 8th St,Minneapolis,MN,55402,4300000,06/25/2024,Elena Ruiz,Multifamily
+SR-1022,Sable Point Group,1200 Main St,Kansas City,mo,64105,2950000,02/14/2024,J. Alvarez,Office
+SR-1023,Twin Rivers Retail LLC,35 E 5th St,Cincinnati,OH,45202,3650000,2024-07-19,Maria Chen,Retail
+SR-1024,Highland Park Capital,,Richmond,VA,23219,1200000,08/01/2024,S. Whitfield,Land
+SR-1025,Copperfield Industrial,4100 S Yale Ave,Tulsa,OK,74135,2600000,26-Mar-24,Priya Nair,Industrial
+SR-1026,Willowbrook Residential Partners,421 Fayetteville St,Raleigh,NC,27601,9600000,2024-05-14,Derek Wu,Multifamily
+SR-1027,Bayshore Office Trust,100 N Tampa St,Tampa,FL,33602,5100000,04/29/2024,Elena Ruiz,Office
+SR-1028,Stonebridge Retail Group,"300 W Main St, Ste 100",Louisville,KY,40202,2450000,2024-06-30,Nathan Ford,Retail
+SR-1029,Ember Ridge Capital,850 W Bannock St,Boise,ID,83702,1450000,07/22/2024,J. Alvarez,Land
+SR-1030,Marlin Bay Partners,3 Independent Dr,Jacksonville,FL,32202,4850000,2024-08-05,S. Whitfield,Industrial
