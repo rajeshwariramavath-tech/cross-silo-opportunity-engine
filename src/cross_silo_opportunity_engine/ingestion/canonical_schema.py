@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Any
 
 
@@ -21,5 +21,5 @@ class CanonicalRecord:
     postal_code: str | None = None
     latitude: float | None = None
     longitude: float | None = None
-    ingested_at: datetime = field(default_factory=datetime.utcnow)
+    ingested_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
     extra: dict[str, Any] = field(default_factory=dict)

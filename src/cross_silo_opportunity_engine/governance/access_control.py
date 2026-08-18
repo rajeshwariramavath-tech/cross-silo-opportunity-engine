@@ -4,30 +4,27 @@ from __future__ import annotations
 
 from typing import Any
 
-from .lineage import trace_field
 from .permissions import ROLE_FIELD_PERMISSIONS
 from .roles import Role
 
-# Metadata used to build lineage, not business content in its own right - never returned
-# as a field, only ever consumed by trace_field() to tag the fields that ARE returned.
-_LINEAGE_METADATA_KEYS = {"sales_source_system", "sales_source_id", "debt_source_system", "debt_source_id"}
+# Any field ending in one of these is a lineage identifier, not business content - it's
+# never filtered by role. Matches CanonicalRecord's own "source_system"/"source_record_id"
+# as well as the opportunity schema's per-side "sales_source_system"/"debt_source_id" etc.
+_LINEAGE_FIELD_SUFFIXES = ("source_system", "source_record_id", "source_id")
 
 
 def scope_result(opportunity: dict[str, Any], requesting_role: Role) -> dict[str, Any]:
     """Renders the same opportunity differently depending on who's asking.
 
-    Every returned field is wrapped with the source_system/source_id it traces back to, so
-    scoping never severs lineage - a role that can't see a field never gets it at all, but
-    any field it does get always carries proof of where that value came from.
+    Only business fields are filtered by ROLE_FIELD_PERMISSIONS - every source_system/
+    source_id (or sales_/debt_-prefixed equivalent) stays on the result no matter the role,
+    so a number can always be traced back to the record it came from.
     """
     allowed_fields = ROLE_FIELD_PERMISSIONS.get(requesting_role, set())
     allow_all = "*" in allowed_fields
 
-    scoped: dict[str, Any] = {}
-    for field, value in opportunity.items():
-        if field in _LINEAGE_METADATA_KEYS:
-            continue
-        if not allow_all and field not in allowed_fields:
-            continue
-        scoped[field] = {"value": value, "lineage": trace_field(opportunity, field)}
-    return scoped
+    return {
+        field: value
+        for field, value in opportunity.items()
+        if field.endswith(_LINEAGE_FIELD_SUFFIXES) or allow_all or field in allowed_fields
+    }
