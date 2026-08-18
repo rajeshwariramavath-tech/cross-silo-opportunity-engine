@@ -12,6 +12,7 @@ license = { text = "Proprietary" }
 
 [project.optional-dependencies]
 dev = ["pytest>=8.0"]
+llm = ["anthropic"]
 
 [tool.setuptools.packages.find]
 where = ["src"]
