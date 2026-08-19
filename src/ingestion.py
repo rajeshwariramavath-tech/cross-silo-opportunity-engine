@@ -13,20 +13,18 @@ can be traced back to the exact record it came from.
 
 from __future__ import annotations
 
+import argparse
 import csv
 import json
 from pathlib import Path
-from typing import Any, Iterator
+from typing import Any
 
 from cross_silo_opportunity_engine.ingestion.adapters.base import BaseSourceAdapter
+from cross_silo_opportunity_engine.ingestion.adapters.csv_adapters import DebtCSVAdapter, SalesCSVAdapter
 from cross_silo_opportunity_engine.ingestion.canonical_schema import CanonicalRecord
-from cross_silo_opportunity_engine.ingestion.normalization import (
-    normalize_address,
-    normalize_entity_name,
-    normalize_state,
-    split_combined_address,
-)
 from cross_silo_opportunity_engine.ingestion.validation import validate_record
+
+DEFAULT_API_BASE_URL = "http://127.0.0.1:8000"
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 RAW_DIR = REPO_ROOT / "data" / "raw"
@@ -49,70 +47,6 @@ CANONICAL_FIELDNAMES = [
 ] + [f"extra_{name}" for name in EXTRA_FIELDNAMES]
 
 REJECT_FIELDNAMES = ["source_system", "source_record_id", "entity_name", "reason", "raw_record"]
-
-
-class SalesCSVAdapter(BaseSourceAdapter):
-    source_system = "sales_records"
-
-    def __init__(self, csv_path: Path):
-        self.csv_path = csv_path
-
-    def read(self) -> Iterator[dict[str, Any]]:
-        with self.csv_path.open(newline="", encoding="utf-8") as handle:
-            yield from csv.DictReader(handle)
-
-    def to_canonical(self, raw_record: dict[str, Any]) -> CanonicalRecord:
-        address = normalize_address(raw_record.get("property_address", ""))
-        return CanonicalRecord(
-            source_system=self.source_system,
-            source_record_id=raw_record.get("deal_id", ""),
-            entity_type="client",
-            entity_name=normalize_entity_name(raw_record.get("client_name", "")),
-            address_line1=address["address_line1"],
-            address_line2=address["address_line2"],
-            city=(raw_record.get("city") or "").strip() or None,
-            state=normalize_state(raw_record.get("state", "")),
-            postal_code=(raw_record.get("zip") or "").strip() or None,
-            extra={
-                "sale_price": raw_record.get("sale_price", ""),
-                "close_date": raw_record.get("close_date", ""),
-                "broker_name": raw_record.get("broker_name", ""),
-                "property_type": raw_record.get("property_type", ""),
-            },
-        )
-
-
-class DebtCSVAdapter(BaseSourceAdapter):
-    source_system = "debt_records"
-
-    def __init__(self, csv_path: Path):
-        self.csv_path = csv_path
-
-    def read(self) -> Iterator[dict[str, Any]]:
-        with self.csv_path.open(newline="", encoding="utf-8") as handle:
-            yield from csv.DictReader(handle)
-
-    def to_canonical(self, raw_record: dict[str, Any]) -> CanonicalRecord:
-        address = split_combined_address(raw_record.get("property_addr", ""))
-        return CanonicalRecord(
-            source_system=self.source_system,
-            source_record_id=raw_record.get("loan_ref", ""),
-            entity_type="borrower",
-            entity_name=normalize_entity_name(raw_record.get("borrower_name", "")),
-            address_line1=address["address_line1"],
-            address_line2=address["address_line2"],
-            city=address["city"],
-            state=address["state"],
-            postal_code=address["postal_code"],
-            extra={
-                "loan_amount": raw_record.get("loan_amount", ""),
-                "orig_date": raw_record.get("orig_date", ""),
-                "maturity_date": raw_record.get("maturity_date", ""),
-                "lender_name": raw_record.get("lender_name", ""),
-                "loan_type": raw_record.get("loan_type", ""),
-                "notes": raw_record.get("notes", ""),
-            },
-        )
 
 
 def _missing_raw_fields(raw_record: dict[str, Any], required_fields: list[str]) -> list[str]:
@@ -186,15 +120,42 @@ def write_rejects(rejected_rows: list[dict[str, Any]], out_path: Path) -> None:
             writer.writerow(row)
 
 
-def main() -> None:
-    adapters = [
-        (SalesCSVAdapter(RAW_DIR / "sales_records.csv"), SALES_REQUIRED_RAW_FIELDS),
-        (DebtCSVAdapter(RAW_DIR / "debt_records.csv"), DEBT_REQUIRED_RAW_FIELDS),
+def build_adapters(source: str, api_base_url: str) -> list[tuple[BaseSourceAdapter, list[str]]]:
+    """CSV and API adapters are interchangeable here on purpose: both produce identical
+    CanonicalRecords, so nothing downstream of run_ingestion() needs to know or care which
+    one ran."""
+    if source == "csv":
+        return [
+            (SalesCSVAdapter(RAW_DIR / "sales_records.csv"), SALES_REQUIRED_RAW_FIELDS),
+            (DebtCSVAdapter(RAW_DIR / "debt_records.csv"), DEBT_REQUIRED_RAW_FIELDS),
+        ]
+
+    # Imported lazily so a CSV-only install never needs the optional "requests" dependency.
+    from cross_silo_opportunity_engine.ingestion.adapters.api_adapters import DebtAPIAdapter, SalesAPIAdapter
+
+    return [
+        (SalesAPIAdapter(api_base_url), SALES_REQUIRED_RAW_FIELDS),
+        (DebtAPIAdapter(api_base_url), DEBT_REQUIRED_RAW_FIELDS),
     ]
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--source", choices=["csv", "api"], default="csv",
+        help="Read from data/raw/*.csv directly (default) or from the FastAPI app in api/main.py.",
+    )
+    parser.add_argument(
+        "--api-base-url", default=DEFAULT_API_BASE_URL,
+        help=f"Base URL for --source api (default: {DEFAULT_API_BASE_URL}).",
+    )
+    args = parser.parse_args()
+
+    adapters = build_adapters(args.source, args.api_base_url)
     valid_records, rejected_rows = run_ingestion(adapters)
     write_canonical_records(valid_records, PROCESSED_DIR / "canonical_records.csv")
     write_rejects(rejected_rows, PROCESSED_DIR / "ingestion_rejects.csv")
-    print(f"canonical records: {len(valid_records)}, rejected: {len(rejected_rows)}")
+    print(f"source: {args.source}, canonical records: {len(valid_records)}, rejected: {len(rejected_rows)}")
 
 
 if __name__ == "__main__":

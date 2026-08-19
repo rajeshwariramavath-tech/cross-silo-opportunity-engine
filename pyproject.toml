@@ -13,6 +13,7 @@ license = { text = "Proprietary" }
 [project.optional-dependencies]
 dev = ["pytest>=8.0"]
 llm = ["anthropic"]
+api = ["fastapi", "uvicorn", "requests", "httpx"]
 
 [tool.setuptools.packages.find]
 where = ["src"]
