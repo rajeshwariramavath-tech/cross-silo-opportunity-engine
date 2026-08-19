@@ -97,3 +97,74 @@ functions (no reimplemented logic), with a `python -m cross_silo_opportunity_eng
 `financing`, `valuation`, `property_management`) - per this same instruction not to build a new
 permissions structure, it wasn't added; `--role financing` is the closest existing fit. Added
 this log file.
+
+## 9. README with real captured output
+
+> Run pytest -v, and run the pipeline end to end for both financing and broker roles. Take the
+> real output from all of that and put it under README.md's "What I built" section, run
+> instructions plus the actual output, no placeholder text.
+
+Ran `pytest -v` (84 tests) and `python -m cross_silo_opportunity_engine.pipeline --role
+financing` / `--role broker` for real, then pasted the verbatim output - not illustrative,
+not trimmed - into a new "What I built" section in `README.md`.
+
+## 10. HTML pipeline report
+
+> Write a script scripts/generate_report.py that reads the existing CSVs in data/processed/
+> and generates a single self-contained docs/report.html so it opens directly in a browser or
+> renders on GitHub Pages if I turn that on later. Include, top to bottom: the architecture
+> diagram... a small summary stats row... the ranked opportunities table, and side by side, the
+> same opportunities scoped through governance for the financing role vs the broker role...
+> Keep the styling simple and clean... use the same color palette as the architecture diagram
+> if easy (muted greens/oranges/purples). Run the script and confirm docs/report.html actually
+> renders correctly before i commit.
+
+Produced `scripts/generate_report.py`, which reuses the real `governance.get_opportunities_for_role()`
+rather than re-deriving who-sees-what, and samples its palette from the actual
+`docs/architecture.png`. The financing-vs-broker comparison is one table with color-grouped
+column sections (shared / financing-only / broker-only), not two separate tables. Verified
+rendering with headless Chrome screenshots (no project run-skill existed yet for this repo) -
+confirmed the diagram loads, stats show real numbers, and both tables render correctly,
+including the color-coded columns.
+
+## 11. API-backed ingestion adapters
+
+> Add a small FastAPI app in api/main.py with two endpoints, /sales-records and /debt-records,
+> that just serve the rows from data/raw/sales_records.csv and data/raw/debt_records.csv as
+> JSON. Then add new adapters, SalesAPIAdapter and DebtAPIAdapter, alongside the existing CSV
+> adapters in ingestion/adapters/, same BaseSourceAdapter interface, but they call the API
+> endpoints instead of reading the CSV directly. Ingestion, entity resolution, opportunity
+> detection, and governance shouldn't need to change at all, they only ever see canonical
+> records either way. Run it end to end with the API adapters and confirm the output matches
+> the CSV version.
+
+Added `api/main.py`. While doing this, discovered `SalesCSVAdapter`/`DebtCSVAdapter` actually
+lived in `src/ingestion.py`, not in `ingestion/adapters/` - moved them into the package for
+real, split into `csv_adapters.py` and `api_adapters.py` sharing the same `to_canonical` mixins
+so the two transports can't silently normalize differently. `requests`/`fastapi`/`uvicorn`
+went into a new optional `api` extra so a CSV-only install never needs them. Verified for real:
+started the FastAPI server, ran ingestion with `--source api`, diffed the output against a
+`--source csv` baseline (identical except the `ingested_at` timestamp), then ran entity
+resolution and opportunity detection unmodified against the API-sourced data and got identical
+counts to every prior CSV-sourced run.
+
+## 12. Scale to 400 rows/file + zip-code blocking
+
+> expand data/raw/sales_records.csv and debt_records.csv from 30 rows to 400 rows each, same
+> messiness pattern as before... spread across at least 10-15 different zip codes so blocking
+> actually has something to partition on and update entity_resolution/candidates.py so
+> generate_candidate_pairs() blocks by zip code before scoring and only compare a Sales record
+> against Debt records sharing the same zip, instead of every record against every record, Run
+> pytest, run the pipeline end to end, and tell me how long entity resolution takes with and
+> without blocking so I have real numbers and Also add prompts to prompts/ai_prompts_log.md
+
+Wrote `scripts/generate_synthetic_data.py` - a seeded, reproducible generator (400 rows/file
+across 15 zip codes: 130 "shared" entities at identical addresses, 20 deliberately "ambiguous"
+entities sharing a zip but not a street, ~250 unique-to-one-side entities each) rather than
+hand-authoring 800 rows. Updated `generate_candidate_pairs()` to block by the first 5 digits of
+postal code before pairing across sources. Benchmarked with a new `scripts/benchmark_entity_resolution.py`
+against the real 769 valid canonical records: **without blocking, 147,838 pairs in ~7.7-8.3s;
+with blocking, 10,189 pairs in ~0.52-0.56s - about a 14.5x reduction in pairs and a ~14.7x
+speedup**, with per-pair cost essentially unchanged (~52-56 us/pair either way, confirming the
+gain is entirely from doing less work, not a faster scorer). Full test suite (93 tests) and the
+full pipeline both run clean on the new dataset.

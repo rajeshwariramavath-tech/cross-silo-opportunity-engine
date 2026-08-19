@@ -19,7 +19,8 @@ def test_sales_records_endpoint_matches_the_csv_file():
 
     rows = response.json()
     expected = _expected_rows(RAW_DIR / "sales_records.csv")
-    assert len(rows) == len(expected) == 30
+    assert len(rows) == len(expected)
+    assert len(rows) > 0
     assert rows[0] == expected[0]
 
 
@@ -29,5 +30,6 @@ def test_debt_records_endpoint_matches_the_csv_file():
 
     rows = response.json()
     expected = _expected_rows(RAW_DIR / "debt_records.csv")
-    assert len(rows) == len(expected) == 30
+    assert len(rows) == len(expected)
+    assert len(rows) > 0
     assert rows[0] == expected[0]

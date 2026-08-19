@@ -38,9 +38,13 @@ def test_run_entity_resolution_sorts_by_confidence_descending():
     records = [
         _record("sales_records", "S1", "Silverline Capital", "900 Congress Avenue"),
         _record("debt_records", "D1", "Silverline Capital LLC", "900 Congress Avenue"),
-        _record("debt_records", "D2", "Totally Unrelated Co", "1 Nowhere Road", city="Miami", state="FL", postal_code="33131"),
+        # A second zip block, so this pair is actually blocked and scored too - not just a
+        # lone unmatched record blocking would otherwise skip entirely.
+        _record("sales_records", "S2", "Nowhere Retail Partners", "1 Nowhere Road", city="Miami", state="FL", postal_code="33131"),
+        _record("debt_records", "D2", "Totally Unrelated Co", "42 Somewhere Else Blvd", city="Miami", state="FL", postal_code="33131"),
     ]
     matches = run_entity_resolution(records)
+    assert len(matches) == 2  # one pair per zip block (80202, 33131) - blocking keeps them from cross-pairing
     confidences = [match["confidence"] for match in matches]
     assert confidences == sorted(confidences, reverse=True)
 

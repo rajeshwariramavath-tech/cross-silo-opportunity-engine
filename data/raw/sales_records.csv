@@ -1,31 +1,401 @@
 deal_id,client_name,property_address,city,state,zip,sale_price,close_date,broker_name,property_type
-SR-1001,Meridian Property Group,"4820 Riverside Dr, Suite 200",Columbus,OH,43215,4200000,03/14/2024,J. Alvarez,Office
-SR-1002,Oakwood Retail Partners,112 Elm Street,Denver,CO,80202,"$1,850,000",2024-02-01,Maria Chen,Retail
-SR-1003,Silverline Capital,900 Congress Ave Fl 12,Austin,TX,78701,7600000,"March 22, 2024",,Office
-SR-1004,HARBORVIEW HOLDINGS,55 Bay St,Boston,MA,02110,,2024-04-10,Tom O'Neill,Office
-SR-1005,Crestpoint Industrial Ptrs,7700 Freight Way,Memphis,TN,38118,5300000,04/02/2024,Priya Nair,Industrial
-SR-1006,Bluepeak Realty Trust,300 Lakeshore Blvd,Chicago,IL,60601,9100000,2024-01-19,Derek Wu,Retail
-SR-1007,Ashford  Commercial Group,18 Peachtree St NW,Atlanta,GA,30303,3400000,01/05/2024,S. Whitfield,Office
-SR-1008,Northgate Logistics,"2200 Airport Rd, Suite 5",Nashville,TN,37217,6250000,2024-05-03,Priya Nair,Industrial
-SR-1009,Delta Ridge Ventures,88 Canal St,New Orleans,LA,70130,2100000,05/17/2024,,Retail
-SR-1010,Cornerstone Retail Fund,410 Westheimer Rd,Houston,TX,77006,4750000,2024-03-29,J. Alvarez,Retail
-SR-1011,Pinnacle Office Trust,601 Union St,Seattle,WA,98101,8900000,06/11/2024,Maria Chen,Office
-SR-1012,redwood multifamily group,245 Fillmore St,San Francisco,CA,94117,11200000,2024-02-27,Derek Wu,Multifamily
-SR-1013,Vantage Point Capital,"1500 SW 1st Ave, Ste 900",Portland,OR,97201,3950000,04/18/2024,Nathan Ford,Office
-SR-1014,Summit Bay Investors,780 Brickell Ave,Miami,FL,33131,6100000,2024-06-02,Elena Ruiz,Retail
-SR-1015,Ironwood Development Co,4400 E Camelback Rd,Phoenix,AZ,85018,2750000,07/09/2024,Nathan Ford,Industrial
-SR-1016,Cascade Urban Partners,1200 K St,Sacramento,CA,95814,,,Elena Ruiz,Multifamily
-SR-1017,Larkspur Holdings,55 W South Temple,Salt Lake City,UT,84101,1650000,03/08/2024,J. Alvarez,Land
-SR-1018,Brightline REIT,201 S Tryon St,Charlotte,NC,28202,5400000,2024-04-22,S. Whitfield,Office
-SR-1019,Foundry Square Partners,"600 Grant St, Fl 3",Pittsburgh,PA,15219,3100000,05/30/2024,Derek Wu,Retail
-SR-1020,Golden Gate Industrial Trust,1250 45th St,Oakland,CA,94608-1234,7800000,2024-01-11,Nathan Ford,Industrial
-SR-1021,Maple Crest Ventures,80 S 8th St,Minneapolis,MN,55402,4300000,06/25/2024,Elena Ruiz,Multifamily
-SR-1022,Sable Point Group,1200 Main St,Kansas City,mo,64105,2950000,02/14/2024,J. Alvarez,Office
-SR-1023,Twin Rivers Retail LLC,35 E 5th St,Cincinnati,OH,45202,3650000,2024-07-19,Maria Chen,Retail
-SR-1024,Highland Park Capital,,Richmond,VA,23219,1200000,08/01/2024,S. Whitfield,Land
-SR-1025,Copperfield Industrial,4100 S Yale Ave,Tulsa,OK,74135,2600000,26-Mar-24,Priya Nair,Industrial
-SR-1026,Willowbrook Residential Partners,421 Fayetteville St,Raleigh,NC,27601,9600000,2024-05-14,Derek Wu,Multifamily
-SR-1027,Bayshore Office Trust,100 N Tampa St,Tampa,FL,33602,5100000,04/29/2024,Elena Ruiz,Office
-SR-1028,Stonebridge Retail Group,"300 W Main St, Ste 100",Louisville,KY,40202,2450000,2024-06-30,Nathan Ford,Retail
-SR-1029,Ember Ridge Capital,850 W Bannock St,Boise,ID,83702,1450000,07/22/2024,J. Alvarez,Land
-SR-1030,Marlin Bay Partners,3 Independent Dr,Jacksonville,FL,32202,4850000,2024-08-05,S. Whitfield,Industrial
+SR-1001,falcon creek commercial,5503 Peachtree Ave,San Francisco,CA,94117,14600000,20-Jan-24,Nathan Ford,Office
+SR-1002,Ridgeline Group,4710 Meridian Ln,Columbus,OH,43215,"$3,300,000","September 3, 2024",Derek Wu,Office
+SR-1003,Prairie Wind Fund,2283 Meridian Drive,miami,FL,33131-1116,"$8,850,000",04/06/2024,R. Delgado,Land
+SR-1004,Valley Forge Industrial,96 Market Street,Houston,TX,77006,"$13,150,000",06-Jul-24,S. Whitfield,Land
+SR-1005,ROSEWOOD PARTNERS LP,8657 Commerce Street,San Francisco,CA,94117,11050000,12/03/2024,R. Delgado,Office
+SR-1006,Zenith Point Capital Inc,4730 Tryon Boulevard,Portland,OR,97201,11050000,"November 3, 2024",Alicia Fox,Office
+SR-1007,Coastal Bend Ventures,792 Tryon Drive,Denver,CO,80202-9489,6700000,08/12/2024,R. Delgado,Office
+SR-1008,Cornerstone Investors,"7499 Congress St, 23rd Floor",Seattle,wa,98101,3100000,"December 8, 2024",S. Whitfield,Retail
+SR-1009,Ferngate Retail,8199 Summit St,Miami,FL,33131-3867,3750000,"October 21, 2024",Alicia Fox,Industrial
+SR-1010,Underhill Properties,5790 Tryon Road,Houston,TX,77006,"$1,500,000","May 4, 2024",,Retail
+SR-1011,Palmetto Coast Residential LP,8326 Elm Dr,New Orleans,LA,70130,"$9,550,000",2024-06-29,Nathan Ford,Retail
+SR-1012,Harborview Residential Fnd,5782 Summit Blvd,Columbus,OH,43215,"$6,050,000",2024-12-15,Nathan Ford,Retail
+SR-1013,Elm Hollow Capital,"2878 Harbor Ln, 40th Floor",Miami,FL,33131,13400000,"January 4, 2024",K. Bennett,Industrial
+SR-1014,KESTREL FUND,"727 Camelback Street, 31st Floor",Boston,MA,02110-6689,"$14,050,000",10/03/2024,,Retail
+SR-1015,Juniper Bend Office,5090 Liberty Dr,Chicago,IL,60601,"$5,500,000",2024-05-12,Nathan Ford,Industrial
+SR-1016,ember ridge capital inc.,"8907 Meridian Blvd, Ste 37",Miami,FL,33131,"$5,800,000",2024-12-17,J. Alvarez,Retail
+SR-1017,ashgrove residential,6965 Market Dr,Denver,CO,80202,"$2,000,000",2024-11-18,,Industrial
+SR-1018,Underhill Group,2966 Summit Boulevard,Houston,TX,77006,"$11,300,000",2024-06-20,R. Delgado,Land
+SR-1019,Prairie Wind Commercial,6991 Airport Lane,Houston,TX,77006,12650000,2024-12-10,R. Delgado,Industrial
+SR-1020,MARLIN BAY TRUST INC.,949 Congress Lane,Seattle,WA,98101-6629,"$10,900,000",06-Feb-24,Nathan Ford,Land
+SR-1021,LARKSPUR HOLDINGS,"6665 Washington Rd, Suite 9",Seattle,WA,98101,"$3,400,000",30-Apr-24,J. Alvarez,Multifamily
+SR-1022,Ferngate Realty,"6531 Lakeshore Lane, Ste 6",Chicago,IL,60601,"$4,000,000",2024-12-01,,Industrial
+SR-1023,Brightline Trust,9212 Bay Blvd,Atlanta,GA,30303,12450000,03-Oct-24,R. Delgado,Land
+SR-1024,Silverpine Group,2233 Congress Dr,Denver,co,80202,"$4,250,000",15-Feb-24,Wendy Park,Multifamily
+SR-1025,Millbrook Holdings Inc.,"2862 Washington Rd, 19th Floor",San Francisco,CA,94117,"$7,150,000",01-Nov-24,Derek Wu,Industrial
+SR-1026,Nightingale Development,9087 Washington Drive,Chicago,IL,60601,"$11,350,000",11/09/2024,S. Whitfield,Office
+SR-1027,Underhill Investors,"9048 Canal Road, 13th Floor",Portland,OR,97201-1813,4000000,06/13/2024,Priya Nair,Office
+SR-1028,cascade group,1422 Congress Blvd,Phoenix,AZ,85018,"$4,500,000",12-Sep-24,,Multifamily
+SR-1029,Lakeshore Holdings,"7852 Heritage Drive, 1st Floor",Atlanta,GA,30303,"$1,650,000",03/03/2024,Derek Wu,Multifamily
+SR-1030,Golden Gate Holdings Ptrs,8486 Jefferson Avenue,Seattle,WA,98101,"$5,850,000",03/22/2024,Derek Wu,Office
+SR-1031,Ironbridge Group LLC,"2044 Heritage Ave, Fl 38",Columbus,OH,43215,"$4,750,000",03/02/2024,Tom O'Neill,Office
+SR-1032,NORTHGATE OFFICE,2707 Airport Blvd,Memphis,TN,38118-6824,"$6,750,000",,Tom O'Neill,Retail
+SR-1033,REDWOOD RESIDENTIAL,"9034 Tampa Ave, Suite 32",Boston,MA,02110,"$9,700,000",27-Dec-24,Alicia Fox,Land
+SR-1034,grayson industrial,4971 Summit Street,Seattle,WA,98101,1250000,"May 14, 2024",Derek Wu,Industrial
+SR-1035,kestrel holdings,2772 Peachtree Avenue,New Orleans,LA,70130,11250000,07/17/2024,R. Delgado,Office
+SR-1036,OVERLOOK COMMERCIAL PTRS,"9459 Yale Lane, Suite 13",Seattle,WA,98101,"$7,350,000",2024-02-24,Maria Chen,Office
+SR-1037,Quarrystone Trust,4755 Independent Dr,New Orleans,LA,70130,10200000,02/10/2024,S. Whitfield,Land
+SR-1038,Canyon Point Investors Fnd,7943 Harbor Ave,Atlanta,GA,30303,7150000,2024-04-20,K. Bennett,Multifamily
+SR-1039,ridgeline realty,2363 Lakeshore Parkway,Chicago,IL,60601,11050000,2024-12-11,Alicia Fox,Multifamily
+SR-1040,GRAYSON COMMERCIAL,5241 Jefferson Drive,San Francisco,CA,94117,6950000,2024-06-15,K. Bennett,Industrial
+SR-1041,Meridian Investors,4392 Industrial Ave,Denver,CO,80202,"$8,500,000",2024-01-01,Nathan Ford,Office
+SR-1042,Falcon Creek Properties,1596 Riverside Boulevard,Austin,TX,78701,"$4,750,000","October 10, 2024",Derek Wu,Retail
+SR-1043,FAIRVIEW RETAIL,6860 Tryon Pkwy,Atlanta,GA,30303,3200000,"October 18, 2024",,Land
+SR-1044,Coastal Bend Group,8173 Liberty Drive,Austin,TX,78701,6600000,06/20/2024,R. Delgado,Multifamily
+SR-1045,Greystone Logistics,3534 Jefferson Street,Boston,MA,02110,10850000,10/16/2024,S. Whitfield,Multifamily
+SR-1046,Blackthorn Holdings,1771 Commerce Ave,Columbus,OH,43215,"$4,250,000",2024-01-26,R. Delgado,Land
+SR-1047,Stonebridge Holdings,6124 Franklin Road,Atlanta,GA,30303,3650000,06-May-24,Derek Wu,Industrial
+SR-1048,Brightline  Residential,2373 Camelback Road,Chicago,IL,60601,"$6,750,000","March 27, 2024",Wendy Park,Office
+SR-1049,Fairview Logistics,7771 Heritage Dr,Chicago,IL,60601,"$12,300,000","March 16, 2024",K. Bennett,Retail
+SR-1050,Quarrystone Office,"8456 Canal Boulevard, 40th Floor",Austin,TX,78701,"$7,300,000","March 13, 2024",Wendy Park,Land
+SR-1051,ashgrove trust,5228 Airport Dr,Phoenix,AZ,85018,"$1,250,000",04-Feb-24,Elena Ruiz,Land
+SR-1052,Birchwood  Realty Ptrs,1805 Broadway Rd,seattle,WA,98101,"$8,600,000",01-Nov-24,J. Alvarez,Industrial
+SR-1053,westbrook properties inc.,446 Meridian Blvd,Memphis,TN,38118,1550000,"September 13, 2024",Nathan Ford,Multifamily
+SR-1054,Oakwood Industrial,9487 Grant Ln,Seattle,WA,98101,8750000,"December 13, 2024",Priya Nair,Retail
+SR-1055,FERNGATE HOLDINGS,9570 Meridian Avenue,Columbus,OH,43215,4500000,2024-04-13,K. Bennett,Land
+SR-1056,coastal bend development,6239 Peachtree Pkwy,New Orleans,LA,70130,12100000,"March 15, 2024",Derek Wu,Office
+SR-1057,Harborview Commercial,3978 Oak Rd,Seattle,WA,98101,"$9,950,000",11-Nov-24,Alicia Fox,Multifamily
+SR-1058,Foundry Square Logistics Inc,1810 Camelback St,San Francisco,ca,94117,7700000,2024-09-08,Derek Wu,Retail
+SR-1059,Harborview Holdings,5149 Broadway Avenue,Nashville,TN,37217,1850000,11-Nov-24,Elena Ruiz,Land
+SR-1060,Meridian Properties,3350 Broadway Road,Atlanta,GA,30303,1850000,2024-11-24,Elena Ruiz,Office
+SR-1061,thornfield development,7736 Riverside Lane,Portland,OR,97201,"$5,050,000",01/26/2024,Priya Nair,Multifamily
+SR-1062,rosewood development,8508 Fillmore Rd,Austin,TX,78701,"$9,050,000",2024-02-27,Wendy Park,Retail
+SR-1063,WINDERMERE FUND,2847 Harbor Rd,Chicago,IL,60601,12300000,11/28/2024,Elena Ruiz,Land
+SR-1064,Palmetto Coast Trust,8960 Jefferson Ln,Chicago,IL,60601,"$4,500,000",01/23/2024,S. Whitfield,Multifamily
+SR-1065,meridian realty grp,4341 Meridian Ave,Portland,or,97201-5146,"$13,400,000",13-Apr-24,Tom O'Neill,Office
+SR-1066,foundry square group,4581 Independent Ave,boston,MA,02110,"$9,700,000",05/22/2024,Alicia Fox,Industrial
+SR-1067,PINECREST DEVELOPMENT,"4745 Fillmore Ln, Ste 11",Memphis,TN,38118,12450000,"December 10, 2024",Maria Chen,Industrial
+SR-1068,Larkspur Group Grp,9405 Summit Drive,Denver,CO,80202,"$14,250,000",2024-08-06,Alicia Fox,Office
+SR-1069,Birchwood  Trust,6474 Jefferson Parkway,Phoenix,AZ,85018,7400000,"February 14, 2024",Alicia Fox,Land
+SR-1070,Sable  Point Realty Inc.,2409 Bannock Street,Portland,OR,97201,3800000,2024-04-02,Elena Ruiz,Multifamily
+SR-1071,Steelyard Investors,1304 Jefferson Dr,Memphis,TN,38118-4296,"$14,850,000",04/18/2024,Nathan Ford,Industrial
+SR-1072,Windermere  Capital,870 Union Drive,Boston,MA,02110,"$4,250,000",30-Mar-24,K. Bennett,Industrial
+SR-1073,BLACKTHORN RETAIL,7749 Union Lane,Chicago,IL,60601,6100000,"January 29, 2024",Nathan Ford,Office
+SR-1074,Sagebrush Residential,"7803 Meridian Ln, 35th Floor",Phoenix,AZ,85018,8850000,"March 25, 2024",Tom O'Neill,Retail
+SR-1075,Marlin Bay Investors LP,3814 Summit Lane,Houston,tx,77006,"$13,750,000",25-Sep-24,Priya Nair,Retail
+SR-1076,Hollow Creek Industrial LP,621 Westheimer Dr,San Francisco,CA,94117,"$4,150,000",06/07/2024,Wendy Park,Land
+SR-1077,HIGHLAND PARK VENTURES LP,"2890 Oak Pkwy, Suite 22",Phoenix,AZ,85018,8750000,2024-08-27,Derek Wu,Industrial
+SR-1078,Silverline Residential LLC,8126 Westheimer Ln,Atlanta,GA,30303,6050000,"March 1, 2024",Wendy Park,Industrial
+SR-1079,Vantage Point Group LLC,4752 Oak St,Miami,FL,33131,"$2,150,000",22-Jun-24,Alicia Fox,Land
+SR-1080,COPPER BASIN TRUST,9312 Camelback Avenue,Memphis,TN,38118,12700000,07/01/2024,Wendy Park,Multifamily
+SR-1081,Overlook Realty,6653 Commerce Rd,Houston,TX,77006,"$10,100,000","August 26, 2024",Nathan Ford,Multifamily
+SR-1082,Silverpine Logistics,"5410 Independent Rd, 30th Floor",Memphis,TN,38118,"$3,500,000",03/28/2024,K. Bennett,Multifamily
+SR-1083,Rosewood Commercial,5900 Tryon St,Seattle,WA,98101,11800000,07-Oct-24,Nathan Ford,Land
+SR-1084,Quarrystone Retail,1946 Harbor Blvd,Seattle,WA,98101,"$12,150,000",30-Dec-24,,Office
+SR-1085,Ironbridge Office,6652 Liberty Lane,Austin,TX,78701,800000,2024-06-16,S. Whitfield,Multifamily
+SR-1086,Birchwood  Ventures,"5105 Bay Ln, Fl 20",Portland,OR,97201,3050000,18-Oct-24,S. Whitfield,Office
+SR-1087,Greystone Partners Fnd,"7464 Washington Drive, Fl 8",Austin,TX,78701,"$11,150,000",2024-05-24,Tom O'Neill,Retail
+SR-1088,FALCON CREEK LOGISTICS,9771 Market Rd,Portland,or,97201,"$1,200,000",01-Aug-24,Priya Nair,Office
+SR-1089,Coastal Bend Trust,8982 Liberty Avenue,Miami,FL,33131,"$12,300,000",2024-12-22,Alicia Fox,Office
+SR-1090,Golden Gate Logistics LLC,"8802 Peachtree Avenue, Fl 27",Houston,TX,77006,13100000,10/06/2024,Wendy Park,Land
+SR-1091,OAKWOOD RETAIL,59 Fillmore Road,Memphis,TN,38118,2750000,"August 26, 2024",Nathan Ford,Land
+SR-1092,Marlin Bay Industrial,6897 Washington Dr,Austin,TX,78701,"$5,050,000","August 28, 2024",Alicia Fox,Industrial
+SR-1093,Stonebridge Office Ptrs,"6194 Highland St, Suite 19",Nashville,TN,37217-8942,"$7,950,000","November 15, 2024",,Office
+SR-1094,Falcon Creek Residential,6449 Heritage Avenue,New Orleans,LA,70130,14300000,"December 3, 2024",Priya Nair,Land
+SR-1095,UNION PACIFIC PARTNERS GRP,3658 Main Pkwy,San Francisco,CA,94117,"$9,600,000","July 30, 2024",Maria Chen,Office
+SR-1096,Ferngate Residential,1858 Oak Pkwy,Phoenix,AZ,85018,"$11,900,000",29-Sep-24,Nathan Ford,Land
+SR-1097,EMBER RIDGE VENTURES,2357 Heritage Ave,Phoenix,AZ,85018,"$7,700,000",11/22/2024,Alicia Fox,Multifamily
+SR-1098,Redwood Holdings,"6831 Broadway Avenue, Ste 34",san francisco,ca,94117,"$2,500,000",06/21/2024,R. Delgado,Multifamily
+SR-1099,HOLLOW CREEK GROUP,"7768 Tryon Parkway, Suite 2",New Orleans,LA,70130,3900000,11/13/2024,Alicia Fox,Retail
+SR-1100,Harborview Ventures,4937 Peachtree Parkway,Boston,MA,02110,12400000,"April 4, 2024",Wendy Park,Industrial
+SR-1101,Stonebridge Realty LP,"954 Broadway Drive, Suite 25",Nashville,TN,37217,5900000,2024-07-17,Maria Chen,Retail
+SR-1102,Falcon Creek Office,4187 Fillmore Blvd,Boston,MA,02110,7200000,02/24/2024,Priya Nair,Office
+SR-1103,Nightingale Partners,"3130 Riverside Boulevard, Fl 26",Miami,FL,33131-9039,2550000,10/21/2024,Wendy Park,Multifamily
+SR-1104,SABLE POINT LOGISTICS,9888 Oak Parkway,Atlanta,ga,30303,14450000,"June 19, 2024",Tom O'Neill,Industrial
+SR-1105,AMBERLEAF INDUSTRIAL,"3092 Fillmore Dr, 13th Floor",Denver,co,80202,12000000,2024-06-02,,Office
+SR-1106,Birchwood Retail,7856 Tryon Lane,Portland,OR,97201,"$1,200,000",02/02/2024,Wendy Park,Office
+SR-1107,greystone industrial,3360 Sunset Ave,Houston,TX,77006,"$2,600,000",2024-09-24,J. Alvarez,Multifamily
+SR-1108,union pacific development,"5902 Liberty Drive, Ste 1",Memphis,TN,38118,2400000,03/29/2024,Alicia Fox,Land
+SR-1109,Union Pacific Trust Fnd,1625 Meridian Parkway,Nashville,TN,37217,6250000,2024-12-13,Maria Chen,Industrial
+SR-1110,,5540 Yale Pkwy,New Orleans,LA,70130,10400000,10/10/2024,Maria Chen,Office
+SR-1111,bayshore development,8015 Century Drive,Miami,FL,33131,7700000,25-May-24,Priya Nair,Land
+SR-1112,copper basin industrial,5780 Airport Avenue,Austin,tx,78701,"$6,800,000",11/09/2024,K. Bennett,Land
+SR-1113,MILLBROOK COMMERCIAL,8964 Century Avenue,San Francisco,CA,94117-2846,"$5,300,000",05/21/2024,,Industrial
+SR-1114,Hearthstone Commercial,8892 Riverside Rd,Phoenix,AZ,85018-1859,"$3,750,000",2024-08-20,Alicia Fox,Land
+SR-1115,Summit Bay Fund Inc,1227 Riverside Pkwy,Columbus,OH,43215,10400000,06/15/2024,Tom O'Neill,Office
+SR-1116,Ferngate Office,159 Fillmore Rd,Austin,TX,78701,"$7,700,000",2024-08-20,,Land
+SR-1117,Bluepeak Partners,8729 Broadway St,Columbus,OH,43215,5150000,2024-08-22,K. Bennett,Multifamily
+SR-1118,SILVERLINE LOGISTICS,7064 Westheimer St,San Francisco,CA,94117,6450000,2024-08-24,J. Alvarez,Multifamily
+SR-1119,yellowpine group,1588 Heritage Ave,Phoenix,az,85018-9701,"$13,450,000",09/15/2024,Elena Ruiz,Retail
+SR-1120,canyon point properties grp,3154 Heritage Blvd,Boston,ma,02110-5994,"$12,400,000",2024-02-16,Elena Ruiz,Retail
+SR-1121,TWIN RIVERS PROPERTIES,9266 Tryon Ln,Nashville,TN,37217-2158,7700000,2024-11-20,Maria Chen,Land
+SR-1122,Quarrystone Capital,"6189 Meridian Street, Fl 4",Atlanta,GA,30303,2500000,2024-02-26,Nathan Ford,Retail
+SR-1123,pinecrest retail,164 Airport Street,Seattle,WA,98101,7600000,24-Oct-24,Maria Chen,Industrial
+SR-1124,timberlake industrial,6535 Congress Blvd,Austin,TX,78701,10200000,03/03/2024,Tom O'Neill,Office
+SR-1125,Brightline Holdings,"2302 Market Road, Suite 7",Atlanta,GA,30303,"$1,350,000",2024-03-25,Elena Ruiz,Multifamily
+SR-1126,Oakwood Holdings,"5676 Riverside St, Suite 15",San Francisco,CA,94117,14350000,23-Sep-24,Alicia Fox,Retail
+SR-1127,birchwood partners,495 Tampa Pkwy,chicago,IL,60601,12450000,2024-04-26,S. Whitfield,Retail
+SR-1128,Twin Rivers Commercial LLC,1755 Market Street,Chicago,IL,60601,"$7,450,000",2024-12-07,J. Alvarez,Industrial
+SR-1129,Crestpoint Holdings LLC,7296 Washington Pkwy,Memphis,TN,38118,12500000,2024-03-24,,Land
+SR-1130,northgate partners,1684 Canal St,Memphis,TN,38118,"$12,100,000",08/30/2024,J. Alvarez,Retail
+SR-1131,Juniper Bend Partners Fnd,"7071 Industrial Rd, Ste 29",Austin,TX,78701,"$7,900,000",07/01/2024,Tom O'Neill,Office
+SR-1132,Ashgrove  Office,8405 Broadway St,New Orleans,LA,70130,"$11,700,000","November 4, 2024",,Industrial
+SR-1133,KESTREL DEVELOPMENT,212 Bannock Drive,Atlanta,GA,30303,4950000,14-Feb-24,Elena Ruiz,Retail
+SR-1134,marlin bay office ptrs,"1397 Tryon Road, Fl 31",Atlanta,GA,30303,"$7,750,000",25-Sep-24,Priya Nair,Retail
+SR-1135,Quarrystone Holdings,2788 Highland Ave,New Orleans,LA,70130,"$6,500,000",01/22/2024,S. Whitfield,Multifamily
+SR-1136,Ironbridge Partners LP,"4531 Broadway Boulevard, Ste 32",Atlanta,ga,30303,10050000,18-Dec-24,R. Delgado,Multifamily
+SR-1137,Falcon Creek Industrial LLC,1270 Washington Boulevard,Nashville,TN,37217-5252,"$9,900,000","October 21, 2024",R. Delgado,Industrial
+SR-1138,Bluepeak Realty,8133 Camelback Dr,Boston,MA,02110,"$14,700,000","February 9, 2024",R. Delgado,Industrial
+SR-1139,Silverpine Office,2229 Independent Street,Denver,CO,80202,"$13,200,000",2024-09-30,Priya Nair,Land
+SR-1140,ember ridge realty,9748 Canal Blvd,Atlanta,GA,30303,"$3,700,000",11/10/2024,Priya Nair,Office
+SR-1141,amberleaf properties,8054 Tryon Blvd,Memphis,TN,38118,1500000,08/14/2024,Wendy Park,Retail
+SR-1142,nightingale retail llc,"4602 Sunset Blvd, Suite 28",Atlanta,ga,30303,"$3,550,000",12/19/2024,S. Whitfield,Office
+SR-1143,Windermere Partners Inc,2290 Independent Avenue,Nashville,tn,37217,7900000,"March 4, 2024",K. Bennett,Land
+SR-1144,Willowbrook Logistics,"9549 Sunset Road, Suite 34",Nashville,tn,37217,3300000,21-Apr-24,Alicia Fox,Retail
+SR-1145,overlook fund llc,"1402 Union Parkway, Fl 25",Seattle,WA,98101,"$14,100,000","August 5, 2024",K. Bennett,Office
+SR-1146,Bayshore  Properties,5826 Airport Ln,Boston,MA,02110,"$11,750,000",08/21/2024,Tom O'Neill,Industrial
+SR-1147,NIGHTINGALE INVESTORS,735 Sunset Parkway,Houston,TX,77006,3400000,2024-02-23,,Retail
+SR-1148,Bayshore Capital,7062 Union Street,Chicago,IL,60601,7750000,03-Mar-24,R. Delgado,Land
+SR-1149,Meridian Fund Inc.,4249 Grant Road,Denver,CO,80202,"$1,550,000",03/16/2024,Tom O'Neill,Office
+SR-1150,windermere trust,8509 Grant Dr,San Francisco,CA,94117,13400000,2024-03-19,Tom O'Neill,Multifamily
+SR-1151,Crestpoint Retail,6418 Harbor Parkway,Chicago,IL,60601,"$10,600,000",03-Oct-24,J. Alvarez,Office
+SR-1152,Copperfield Investors,6825 Market Street,Memphis,TN,38118,13350000,27-Dec-24,Priya Nair,Land
+SR-1153,Willowbrook  Industrial,5716 Meridian St,Nashville,TN,37217,4050000,"July 12, 2024",Alicia Fox,Office
+SR-1154,Cascade Logistics,9052 Airport Boulevard,Austin,TX,78701,8750000,08/07/2024,Maria Chen,Industrial
+SR-1155,VANTAGE POINT FUND,"7090 Sunset Street, 37th Floor",Seattle,WA,98101,10450000,"September 20, 2024",Tom O'Neill,Office
+SR-1156,Ironwood Group,3381 Tampa Pkwy,Boston,MA,02110,2700000,2024-12-07,J. Alvarez,Industrial
+SR-1157,Blackthorn Development,"1035 Union Pkwy, Suite 38",San Francisco,CA,94117,9650000,"February 18, 2024",S. Whitfield,Multifamily
+SR-1158,lakeshore investors,8806 Westheimer Blvd,Miami,fl,33131,14000000,08-May-24,Wendy Park,Multifamily
+SR-1159,Maple Crest Ventures,3238 Harbor Street,Chicago,IL,60601,"$6,950,000","August 10, 2024",Elena Ruiz,Industrial
+SR-1160,Bayshore Commercial,9627 Bay Boulevard,Atlanta,GA,30303,"$6,900,000",2024-07-30,,Industrial
+SR-1161,Brightline Investors Inc.,2326 Liberty Drive,San Francisco,CA,94117,"$14,850,000",11/27/2024,Tom O'Neill,Office
+SR-1162,Amberleaf Investors,9781 Canal Road,Atlanta,GA,30303,"$3,100,000",2024-06-01,Alicia Fox,Land
+SR-1163,Hearthstone Holdings,6941 Westheimer Drive,Atlanta,GA,30303,9200000,25-Sep-24,Wendy Park,Retail
+SR-1164,Delta Ridge Capital,"5164 Industrial Rd, Ste 18",Austin,TX,78701,"$3,650,000",13-Aug-24,Derek Wu,Industrial
+SR-1165,Valley Forge Investors Ptrs,5892 Main Drive,Columbus,OH,43215,2150000,2024-07-07,Elena Ruiz,Industrial
+SR-1166,steelyard office,3206 Highland Road,Austin,TX,78701,10850000,"December 16, 2024",Derek Wu,Industrial
+SR-1167,IRONWOOD INDUSTRIAL,8119 Broadway Lane,New Orleans,LA,70130,2850000,19-Nov-24,Elena Ruiz,Industrial
+SR-1168,Hearthstone Realty,6819 Industrial Drive,Nashville,TN,37217,"$9,150,000",03/23/2024,R. Delgado,Retail
+SR-1169,Larkspur Logistics,"3693 Summit Boulevard, 13th Floor",Memphis,TN,38118,4100000,17-Nov-24,Nathan Ford,Multifamily
+SR-1170,Crestpoint Commercial,"8908 Washington Road, Fl 19",Portland,OR,97201,"$6,500,000",04/11/2024,R. Delgado,Land
+SR-1171,Palmetto Coast Holdings,691 Industrial Road,Miami,FL,33131,"$4,600,000",,Alicia Fox,Office
+SR-1172,Crestpoint Realty Inc,7378 Yale Boulevard,Columbus,OH,43215,8150000,10-Dec-24,Derek Wu,Land
+SR-1173,Fairview Trust,1435 Industrial Parkway,Miami,FL,33131,12300000,"April 6, 2024",R. Delgado,Multifamily
+SR-1174,MAPLE CREST TRUST GRP,3892 Fillmore Pkwy,Denver,CO,80202,3200000,12/20/2024,Derek Wu,Multifamily
+SR-1175,Hollow Creek Partners,9788 Summit Avenue,Memphis,TN,38118,10900000,2024-11-02,K. Bennett,Office
+SR-1176,PINECREST GROUP INC.,4412 Broadway Dr,Houston,TX,77006,"$8,800,000",2024-06-22,S. Whitfield,Industrial
+SR-1177,Twin Rivers Development,1247 Market Dr,Nashville,TN,37217,13350000,2024-11-09,R. Delgado,Multifamily
+SR-1178,Ashgrove Partners,"4568 Washington Dr, Suite 31",New Orleans,LA,70130,"$12,100,000",13-May-24,Maria Chen,Retail
+SR-1179,delta ridge investors,5372 Main Pkwy,Nashville,TN,37217,6200000,04/02/2024,Alicia Fox,Retail
+SR-1180,Twin Rivers Trust,1536 Harbor Ln,Portland,OR,97201,10350000,12/12/2024,Priya Nair,Office
+SR-1181,WINDERMERE RESIDENTIAL,4499 Market Lane,Miami,fl,33131,"$12,350,000",2024-08-20,J. Alvarez,Industrial
+SR-1182,silverline realty lp,"5015 Grant Dr, 6th Floor",Seattle,WA,98101,"$4,950,000",23-Jul-24,R. Delgado,Retail
+SR-1183,Larkspur Fund,1504 Union St,Seattle,WA,98101,"$5,900,000",07-Jun-24,Alicia Fox,Land
+SR-1184,Hearthstone Group,162 Main Lane,Nashville,TN,37217,6500000,2024-11-10,K. Bennett,Land
+SR-1185,Crestpoint Properties,"1985 Commerce Ln, 20th Floor",Chicago,IL,60601,2000000,03/17/2024,K. Bennett,Multifamily
+SR-1186,zenith point properties,9238 Main Rd,new orleans,LA,70130,"$12,600,000",2024-05-09,J. Alvarez,Office
+SR-1187,driftwood development,3500 Peachtree Drive,San Francisco,CA,94117,"$5,550,000",08/20/2024,Alicia Fox,Industrial
+SR-1188,Oakwood Development Fnd,9669 Highland Blvd,Denver,CO,80202,"$13,250,000","January 3, 2024",Wendy Park,Multifamily
+SR-1189,Summit Bay Holdings LLC,"9322 Broadway Blvd, Ste 8",Miami,FL,33131,11950000,2024-01-09,Tom O'Neill,Retail
+SR-1190,Quarrystone Logistics,"2840 Meridian Pkwy, Ste 29",New Orleans,LA,70130,"$10,800,000",09/05/2024,Wendy Park,Multifamily
+SR-1191,Quailridge Trust,283 Congress Street,Denver,CO,80202,"$13,250,000",11/01/2024,Elena Ruiz,Land
+SR-1192,Quarrystone Residential  Ptrs,8818 Peachtree Blvd,New Orleans,LA,70130,"$4,900,000",2024-08-01,Tom O'Neill,Retail
+SR-1193,Driftwood Group,2887 Bay Street,San Francisco,CA,94117,10750000,"November 4, 2024",Priya Nair,Land
+SR-1194,Kestrel Group,"2258 Main Avenue, 9th Floor",San Francisco,CA,94117,"$8,550,000",03/29/2024,Nathan Ford,Industrial
+SR-1195,Windermere Industrial,5690 Heritage Rd,Nashville,TN,37217-2043,"$13,250,000","September 14, 2024",J. Alvarez,Land
+SR-1196,Driftwood Realty  LLC,9457 Congress Dr,Memphis,TN,38118,3600000,09/20/2024,J. Alvarez,Land
+SR-1197,Twin Rivers Office,52 Oak Parkway,New Orleans,LA,70130,"$3,300,000","July 4, 2024",Priya Nair,Office
+SR-1198,Foundry Square Commercial,211 Tryon St,Miami,fl,33131,10300000,04-Jan-24,R. Delgado,Retail
+SR-1199,Brightline  Ventures,5973 Highland Avenue,Nashville,TN,37217,10050000,26-Apr-24,J. Alvarez,Land
+SR-1200,Maple Crest Group,4454 Congress Rd,Chicago,IL,60601,2250000,"March 25, 2024",R. Delgado,Land
+SR-1201,VANTAGE POINT INDUSTRIAL,1966 Liberty Lane,Chicago,IL,60601-5583,6050000,25-Jun-24,R. Delgado,Multifamily
+SR-1202,Millbrook Capital,"5685 Main Boulevard, Fl 25",New Orleans,LA,70130,9500000,2024-03-05,,Land
+SR-1203,millbrook ventures llc,6174 Independent St,Columbus,OH,43215,"$3,950,000",08/04/2024,Alicia Fox,Office
+SR-1204,IRONWOOD PARTNERS,1534 Oak Avenue,Memphis,TN,38118,"$9,750,000",2024-10-24,K. Bennett,Retail
+SR-1205,Rosewood Realty,"8525 Broadway Lane, Fl 30",Phoenix,AZ,85018,"$4,100,000",20-Feb-24,,Land
+SR-1206,Overlook  Holdings,6112 Harbor Lane,Phoenix,AZ,85018,"$4,950,000",2024-05-15,Tom O'Neill,Retail
+SR-1207,EMBER RIDGE DEVELOPMENT,1030 Commerce Lane,Houston,TX,77006,3800000,21-Dec-24,Nathan Ford,Land
+SR-1208,Canyon Point Trust Inc,"3889 Bannock Boulevard, Fl 24",Austin,tx,78701,,2024-06-04,Wendy Park,Multifamily
+SR-1209,falcon creek retail,"2703 Industrial Dr, 37th Floor",Denver,CO,80202,4150000,07-Jun-24,R. Delgado,Multifamily
+SR-1210,Prairie Wind Industrial,"4076 Jefferson Drive, 25th Floor",San Francisco,CA,94117,7900000,2024-04-29,Alicia Fox,Industrial
+SR-1211,overlook partners,6573 Washington Ln,Boston,MA,02110,12950000,04/08/2024,K. Bennett,Retail
+SR-1212,Silverpine Partners,"1386 Yale Pkwy, 6th Floor",Seattle,wa,98101,"$11,950,000",09/30/2024,Nathan Ford,Multifamily
+SR-1213,Marlin Bay Residential,"5442 Bay St, Ste 19",Phoenix,AZ,85018,2300000,"March 14, 2024",Wendy Park,Office
+SR-1214,Pinnacle Logistics,"7000 Westheimer Blvd, Fl 17",Atlanta,GA,30303,"$6,850,000",11-Jul-24,S. Whitfield,Office
+SR-1215,Ashford Logistics,"3076 Tampa Boulevard, Suite 27",Boston,MA,02110,7100000,2024-11-20,Elena Ruiz,Multifamily
+SR-1216,Canyon Point Partners,"2445 Oak Road, Ste 24",Nashville,TN,37217,"$12,350,000",03-Oct-24,Alicia Fox,Industrial
+SR-1217,Bluepeak  Logistics,"4036 Bannock Dr, 18th Floor",Houston,TX,77006,"$1,950,000",11/02/2024,Elena Ruiz,Office
+SR-1218,delta ridge group,3277 Heritage Avenue,Atlanta,GA,30303,7450000,09-Aug-24,R. Delgado,Industrial
+SR-1219,BIRCHWOOD RESIDENTIAL LLC,5279 Highland Blvd,new orleans,la,70130,"$5,200,000",09-Jan-24,K. Bennett,Office
+SR-1220,Coastal Bend Office,"6373 Jefferson Parkway, Suite 29",Miami,FL,33131,"$1,000,000","December 10, 2024",Tom O'Neill,Office
+SR-1221,juniper bend development,"2856 Westheimer Ave, Fl 13",Miami,FL,33131,"$10,050,000",16-Feb-24,Wendy Park,Land
+SR-1222,Nightingale Ventures,8074 Summit Blvd,Boston,MA,02110,"$5,250,000",2024-07-21,Priya Nair,Industrial
+SR-1223,Sagebrush  Partners,8045 Oak Street,Austin,TX,78701,850000,05/20/2024,Nathan Ford,Multifamily
+SR-1224,Larkspur Office Fnd,"3821 Grant St, 32nd Floor",Columbus,OH,43215,"$12,250,000",04-Jul-24,Maria Chen,Land
+SR-1225,Twin Rivers Group,"7841 Main Boulevard, 5th Floor",New Orleans,la,70130,11850000,"May 7, 2024",Derek Wu,Office
+SR-1226,elm hollow properties llc,3310 Canal Boulevard,Phoenix,AZ,85018,12200000,06/19/2024,J. Alvarez,Multifamily
+SR-1227,Bluepeak Development Fnd,"2917 Lakeshore Street, Ste 4",San Francisco,CA,94117-8075,"$11,050,000",,Alicia Fox,Land
+SR-1228,Sable  Point Properties,2430 Peachtree Pkwy,Columbus,OH,43215,"$5,700,000",11/13/2024,Maria Chen,Land
+SR-1229,Marlin Bay Fund,8632 Washington St,Denver,CO,80202,4300000,11/22/2024,Alicia Fox,Multifamily
+SR-1230,Blackthorn Ventures,6491 Union Boulevard,Chicago,IL,60601,10200000,2024-10-25,,Land
+SR-1231,Stonebridge Investors LLC,"39 Sunset Parkway, Fl 13",San Francisco,CA,94117,12750000,"April 12, 2024",Alicia Fox,Industrial
+SR-1232,SUMMIT BAY INVESTORS INC,"9307 Oak Ave, 3rd Floor",Portland,OR,97201,13100000,"September 10, 2024",Elena Ruiz,Retail
+SR-1233,Valley Forge Holdings Grp,"1284 Tryon Boulevard, Suite 5",Chicago,IL,60601-2887,1900000,2024-07-02,Priya Nair,Retail
+SR-1234,twin rivers partners inc,30 Riverside Drive,Denver,co,80202,"$4,300,000",10/10/2024,Derek Wu,Industrial
+SR-1235,Pinnacle  Ventures,1671 Meridian Pkwy,Atlanta,ga,30303,4450000,2024-03-28,Derek Wu,Land
+SR-1236,Valley Forge Partners Ptrs,9480 Grant Ave,Miami,FL,33131,"$4,600,000",11/21/2024,S. Whitfield,Retail
+SR-1237,thornfield holdings,1217 Oak Boulevard,Nashville,TN,37217,10700000,"April 17, 2024",Tom O'Neill,Retail
+SR-1238,FERNGATE INVESTORS,5231 Yale St,Columbus,OH,43215,"$6,100,000",2024-09-10,Derek Wu,Multifamily
+SR-1239,Redwood Industrial,5610 Airport Dr,Denver,co,80202,12150000,2024-03-21,Tom O'Neill,Land
+SR-1240,Brightline Group,1238 Market Blvd,austin,TX,78701,7550000,"July 28, 2024",S. Whitfield,Land
+SR-1241,Juniper Bend Retail LLC,7919 Elm Drive,Houston,TX,77006,"$7,200,000","April 26, 2024",Alicia Fox,Retail
+SR-1242,Windermere Logistics,2713 Commerce Avenue,Seattle,WA,98101-5906,"$1,100,000",2024-05-13,Derek Wu,Retail
+SR-1243,Maple Crest Logistics,"4622 Independent Ave, 30th Floor",Seattle,WA,98101,"$6,150,000",06/23/2024,Alicia Fox,Retail
+SR-1244,Ashford Investors,72 Commerce Street,Chicago,IL,60601,"$14,550,000",12/03/2024,J. Alvarez,Retail
+SR-1245,Palmetto Coast Office,9843 Meridian Avenue,Memphis,TN,38118,"$10,800,000",18-Nov-24,Maria Chen,Industrial
+SR-1246,Greystone Capital,1503 Summit Dr,Memphis,TN,38118,"$1,450,000",02/17/2024,Elena Ruiz,Industrial
+SR-1247,ironwood development inc.,7629 Yale Ave,Nashville,TN,37217-9495,"$3,600,000",20-Aug-24,Maria Chen,Multifamily
+SR-1248,Sable Point Partners,"4410 Riverside Avenue, Ste 20",Miami,FL,33131,5950000,09-Aug-24,J. Alvarez,Retail
+SR-1249,quailridge commercial,1594 Market Lane,Portland,OR,97201,"$3,100,000",06-May-24,Wendy Park,Industrial
+SR-1250,IRONWOOD HOLDINGS,3737 Riverside Parkway,Houston,TX,77006,5450000,07/31/2024,J. Alvarez,Retail
+SR-1251,UNDERHILL OFFICE,8477 Peachtree St,Phoenix,AZ,85018,"$13,400,000",10/02/2024,Maria Chen,Office
+SR-1252,,7367 Westheimer Avenue,Portland,OR,97201,"$12,600,000",25-Mar-24,Elena Ruiz,Office
+SR-1253,SABLE POINT INVESTORS,"6520 Lakeshore Parkway, 32nd Floor",New Orleans,LA,70130-9985,7900000,2024-08-24,Alicia Fox,Office
+SR-1254,Bluepeak Properties,1664 Bannock Pkwy,Houston,TX,77006-1183,1650000,2024-03-27,J. Alvarez,Land
+SR-1255,,5643 Broadway Boulevard,new orleans,LA,70130,5950000,"July 18, 2024",Derek Wu,Office
+SR-1256,greystone residential llc,7965 Meridian Street,Atlanta,GA,30303,"$5,050,000",04/08/2024,Nathan Ford,Land
+SR-1257,Kestrel Trust Inc,2211 Independent Lane,Boston,ma,02110,"$8,850,000",2024-07-21,Maria Chen,Industrial
+SR-1258,Quailridge  Partners,"6681 Century Pkwy, Ste 27",Boston,ma,02110,9100000,03-Jun-24,Wendy Park,Retail
+SR-1259,Northgate Development,6136 Riverside Road,new orleans,LA,70130,"$12,250,000",2024-06-11,Wendy Park,Office
+SR-1260,Ashford Ventures,7488 Riverside Boulevard,Columbus,OH,43215,"$13,550,000",2024-06-07,R. Delgado,Office
+SR-1261,Ferngate Fund,7785 Jefferson Boulevard,Miami,FL,33131,14100000,15-Aug-24,S. Whitfield,Office
+SR-1262,GREYSTONE PROPERTIES,9385 Fillmore Parkway,Miami,FL,33131,6450000,15-Apr-24,Priya Nair,Multifamily
+SR-1263,Overlook Properties,3698 Fillmore Blvd,Boston,MA,02110-3318,"$6,000,000",04/08/2024,Tom O'Neill,Industrial
+SR-1264,Pinnacle Office,6719 Liberty St,Seattle,WA,98101,"$13,100,000","November 6, 2024",Priya Nair,Multifamily
+SR-1265,Driftwood Industrial,155 Meridian Avenue,Miami,FL,33131,8450000,2024-03-20,Priya Nair,Industrial
+SR-1266,Maple Crest Office,"2847 Main Ave, 5th Floor",Seattle,wa,98101,13600000,"June 19, 2024",Elena Ruiz,Multifamily
+SR-1267,Copper  Basin Holdings LLC,5014 Tampa Dr,Memphis,TN,38118,5750000,"November 24, 2024",Wendy Park,Industrial
+SR-1268,ELM HOLLOW DEVELOPMENT,6178 Jefferson Dr,Phoenix,az,85018-7313,10050000,12/22/2024,R. Delgado,Retail
+SR-1269,AMBERLEAF COMMERCIAL,130 Liberty Ln,Denver,CO,80202,3150000,10-May-24,Alicia Fox,Office
+SR-1270,Copper Basin  Logistics,6141 Bannock Blvd,Miami,FL,33131,"$3,050,000","August 6, 2024",S. Whitfield,Retail
+SR-1271,rosewood capital llc,1781 Meridian St,Seattle,WA,98101,8150000,2024-03-27,Priya Nair,Retail
+SR-1272,Overlook Development Inc,4539 Lakeshore Pkwy,Chicago,IL,60601,7400000,18-Aug-24,Alicia Fox,Office
+SR-1273,Northgate Ventures,"9382 Camelback Blvd, 8th Floor",San Francisco,CA,94117-1486,"$2,350,000",05/21/2024,J. Alvarez,Office
+SR-1274,Birchwood  Logistics,2795 Westheimer Boulevard,Memphis,TN,38118,"$9,400,000","September 23, 2024",Derek Wu,Industrial
+SR-1275,driftwood properties,"7723 Canal Ln, Fl 22",Denver,CO,80202-7583,"$14,350,000",2024-02-21,Alicia Fox,Multifamily
+SR-1276,TWIN RIVERS RETAIL LP,"3669 Independent Drive, Fl 2",Chicago,IL,60601,"$13,200,000",11/20/2024,Tom O'Neill,Office
+SR-1277,Ferngate Group,"5438 Washington Blvd, Ste 34",Portland,or,97201,14800000,19-Oct-24,Tom O'Neill,Office
+SR-1278,Juniper Bend Trust,"4827 Harbor Parkway, Ste 6",Houston,TX,77006,"$7,950,000","February 24, 2024",R. Delgado,Office
+SR-1279,ironwood retail,7719 Riverside Parkway,Denver,CO,80202,2450000,08-Sep-24,Wendy Park,Multifamily
+SR-1280,Highland Park Holdings LLC,6263 Heritage Boulevard,Miami,FL,33131,5600000,08/11/2024,Priya Nair,Industrial
+SR-1281,Larkspur Capital,"895 Peachtree Avenue, Suite 38",Atlanta,GA,30303,4000000,2024-10-01,J. Alvarez,Land
+SR-1282,Coastal Bend Industrial,87 Industrial Blvd,Columbus,OH,43215,1650000,"May 31, 2024",Wendy Park,Office
+SR-1283,VALLEY FORGE VENTURES,2772 Airport Drive,Boston,MA,02110,"$9,300,000",2024-11-19,Derek Wu,Office
+SR-1284,Twin  Rivers Industrial,6290 Main Street,Nashville,TN,37217,"$9,400,000",19-Jul-24,Elena Ruiz,Multifamily
+SR-1285,bluepeak holdings,"3277 Washington Street, Ste 36",New Orleans,la,70130,"$8,550,000",2024-07-20,Tom O'Neill,Multifamily
+SR-1286,JUNIPER BEND CAPITAL,"5289 Heritage Ave, Ste 1",Phoenix,AZ,85018,11700000,2024-07-04,Maria Chen,Industrial
+SR-1287,Crestpoint Fund,"77 Tryon Ave, Fl 38",columbus,OH,43215,"$13,300,000",2024-08-10,Elena Ruiz,Office
+SR-1288,Ashgrove Industrial,5651 Independent Avenue,San Francisco,CA,94117,"$13,800,000",20-May-24,Wendy Park,Office
+SR-1289,Golden Gate Office,323 Grant Ave,Atlanta,GA,30303,"$14,550,000",11/26/2024,K. Bennett,Land
+SR-1290,summit bay retail,6016 Oak Drive,Denver,CO,80202,"$3,800,000",2024-12-31,,Multifamily
+SR-1291,Yellowpine Commercial,"4200 Summit Rd, Ste 11",Phoenix,AZ,85018,10100000,2024-02-14,R. Delgado,Office
+SR-1292,Hollow Creek Commercial,9740 Riverside Ln,Columbus,OH,43215,9800000,2024-05-30,R. Delgado,Office
+SR-1293,Timberlake Fund,"8976 Yale Dr, Ste 9",Denver,CO,80202,"$14,850,000",04-Nov-24,Priya Nair,Multifamily
+SR-1294,WILLOWBROOK TRUST FND,2518 Fillmore Lane,San Francisco,CA,94117,5700000,2024-12-21,Priya Nair,Industrial
+SR-1295,Coastal Bend Partners Ptrs,"162 Independent Dr, Ste 5",Seattle,wa,98101,9300000,,Derek Wu,Industrial
+SR-1296,Pinnacle Realty,"1664 Heritage Boulevard, Suite 8",Seattle,wa,98101,9700000,"March 30, 2024",Alicia Fox,Office
+SR-1297,CASCADE REALTY,1938 Bannock St,Houston,TX,77006,"$11,100,000",2024-07-18,R. Delgado,Land
+SR-1298,Silverline Industrial,"1751 Century Avenue, Fl 4",Portland,OR,97201,"$5,450,000","November 23, 2024",K. Bennett,Industrial
+SR-1299,Westbrook  Commercial,3282 Yale Pkwy,Houston,TX,77006,"$2,800,000",2024-04-27,Priya Nair,Land
+SR-1300,ASHGROVE COMMERCIAL GRP,3314 Jefferson Lane,New Orleans,LA,70130,13500000,09/09/2024,Alicia Fox,Retail
+SR-1301,Westbrook  Capital,4849 Airport Street,Atlanta,GA,30303,14200000,2024-12-25,,Retail
+SR-1302,Larkspur Retail,8142 Fillmore Lane,New Orleans,LA,70130,"$3,800,000",13-Jul-24,Derek Wu,Office
+SR-1303,pinnacle partners,"7885 Franklin Avenue, Fl 33",Phoenix,az,85018,"$12,550,000","January 19, 2024",Nathan Ford,Retail
+SR-1304,Zenith Point Realty,1566 Oak St,Denver,CO,80202,4750000,"April 11, 2024",Elena Ruiz,Industrial
+SR-1305,Windermere Retail,"6115 Franklin Ave, Fl 7",Denver,co,80202,"$5,850,000","August 12, 2024",,Multifamily
+SR-1306,Valley Forge Retail Grp,"6576 Sunset Dr, Ste 31",Denver,CO,80202,9100000,06-Dec-24,Wendy Park,Multifamily
+SR-1307,underhill realty,6329 Meridian Parkway,Memphis,TN,38118,"$9,550,000",03/05/2024,S. Whitfield,Industrial
+SR-1308,maple crest commercial,"5885 Elm Parkway, Ste 33",Atlanta,GA,30303,"$11,750,000",04/05/2024,K. Bennett,Land
+SR-1309,Ashford Office Grp,2150 Meridian Drive,Seattle,WA,98101,"$11,700,000",2024-11-20,J. Alvarez,Multifamily
+SR-1310,Underhill Capital,8608 Grant Ln,San Francisco,ca,94117,"$3,600,000","April 28, 2024",Wendy Park,Multifamily
+SR-1311,Palmetto Coast Capital Grp,"5552 Heritage Road, Suite 4",Miami,FL,33131,7250000,"December 4, 2024",Maria Chen,Office
+SR-1312,Highland Park Residential,1570 Commerce Lane,San Francisco,CA,94117,"$10,300,000","March 7, 2024",Elena Ruiz,Office
+SR-1313,Foundry  Square Development Grp,9157 Riverside St,Miami,FL,33131-4120,8500000,2024-03-02,Priya Nair,Office
+SR-1314,Oakwood Trust,8133 Airport St,Nashville,TN,37217,"$2,500,000",10/13/2024,S. Whitfield,Retail
+SR-1315,Valley  Forge Fund,"4567 Riverside Road, Ste 26",Chicago,IL,60601,"$10,750,000","September 10, 2024",J. Alvarez,Retail
+SR-1316,yellowpine capital,"9029 Highland Drive, 33rd Floor",Boston,MA,02110,"$3,800,000",12/28/2024,S. Whitfield,Office
+SR-1317,Cornerstone Logistics LP,"3860 Market Drive, Ste 18",Miami,FL,33131,"$10,200,000","January 27, 2024",Elena Ruiz,Land
+SR-1318,Union Pacific Industrial Inc.,9398 Industrial Street,Nashville,TN,37217,3500000,06-Jan-24,S. Whitfield,Land
+SR-1319,Pinnacle Industrial,"8176 Industrial Boulevard, Fl 14",Miami,FL,33131,"$11,900,000",24-Oct-24,Priya Nair,Multifamily
+SR-1320,twin rivers capital,"8158 Elm Street, 12th Floor",Denver,CO,80202,"$5,600,000",11/27/2024,Tom O'Neill,Multifamily
+SR-1321,,6765 Oak Road,Atlanta,GA,30303,"$1,900,000",01/07/2024,R. Delgado,Land
+SR-1322,timberlake realty,"12 Market Parkway, Fl 6",New Orleans,LA,70130,"$13,050,000",04/13/2024,S. Whitfield,Land
+SR-1323,Summit Bay Office,"5000 Liberty Road, Fl 7",Houston,TX,77006,"$10,650,000","September 18, 2024",R. Delgado,Multifamily
+SR-1324,Ashford Residential  LLC,7484 Franklin Boulevard,Boston,MA,02110,"$3,800,000",09/08/2024,Alicia Fox,Retail
+SR-1325,WINDERMERE OFFICE,899 Grant Parkway,Miami,FL,33131,"$3,450,000",13-Dec-24,S. Whitfield,Office
+SR-1326,NORTHGATE FUND GRP,5449 Meridian Lane,Nashville,TN,37217,"$2,500,000",01-Dec-24,S. Whitfield,Retail
+SR-1327,Amberleaf  Realty,"5962 Industrial Street, 23rd Floor",Seattle,WA,98101,"$7,050,000",12-Jun-24,Tom O'Neill,Land
+SR-1328,Rosewood Logistics,"3643 Main Blvd, 34th Floor",Denver,CO,80202,6000000,10/22/2024,Tom O'Neill,Retail
+SR-1329,Coastal Bend Fund LP,4793 Heritage Blvd,Chicago,IL,60601,6150000,03/12/2024,Maria Chen,Retail
+SR-1330,Copper Basin Group,1751 Oak Ave,San Francisco,CA,94117-2736,"$1,550,000",,,Office
+SR-1331,OAKWOOD LOGISTICS,"6447 Fillmore Dr, Ste 34",Phoenix,AZ,85018,"$1,100,000",2024-12-23,,Office
+SR-1332,ELM HOLLOW COMMERCIAL,"9657 Bay Pkwy, 28th Floor",Miami,FL,33131,8600000,14-Dec-24,S. Whitfield,Office
+SR-1333,Lakeshore  Office Fnd,"8699 Riverside Road, Ste 26",Columbus,OH,43215-7427,8800000,12-Nov-24,Priya Nair,Office
+SR-1334,Harborview Office,"7101 Meridian Road, Suite 7",Phoenix,AZ,85018,"$3,500,000",02/09/2024,S. Whitfield,Retail
+SR-1335,oakwood office,"2913 Westheimer Lane, Fl 6",portland,OR,97201,"$8,700,000","October 18, 2024",Elena Ruiz,Land
+SR-1336,hearthstone retail grp,6312 Broadway Road,Phoenix,AZ,85018,"$4,600,000",07-Mar-24,J. Alvarez,Industrial
+SR-1337,cascade capital,"4077 Tampa Drive, Suite 15",Phoenix,AZ,85018,14000000,"April 20, 2024",Priya Nair,Industrial
+SR-1338,Grayson Fund,9079 Fillmore Avenue,San Francisco,CA,94117,2700000,21-Jan-24,J. Alvarez,Retail
+SR-1339,Quarrystone Properties,5291 Bay Pkwy,San Francisco,ca,94117,"$10,100,000",02/14/2024,Tom O'Neill,Industrial
+SR-1340,Zenith Point  Retail LLC,9222 Meridian Road,chicago,IL,60601,"$11,050,000",2024-08-14,K. Bennett,Land
+SR-1341,Quarrystone  Realty,2646 Bannock Ln,Portland,OR,97201,7050000,09/16/2024,Maria Chen,Industrial
+SR-1342,Steelyard Properties,539 Jefferson Parkway,New Orleans,LA,70130,"$12,700,000",2024-04-24,Elena Ruiz,Multifamily
+SR-1343,Overlook Group,222 Yale Ave,Columbus,oh,43215,4750000,,Nathan Ford,Land
+SR-1344,silverpine holdings inc,8428 Bay Dr,Austin,TX,78701,"$7,700,000",2024-08-08,Maria Chen,Industrial
+SR-1345,Oakwood Fund,2546 Oak Ave,Nashville,tn,37217,"$11,750,000","August 2, 2024",Nathan Ford,Multifamily
+SR-1346,Quarrystone Group,9023 Jefferson Street,Houston,TX,77006,"$5,850,000",,Wendy Park,Industrial
+SR-1347,Cornerstone Commercial,2621 Broadway Road,New Orleans,la,70130,12300000,2024-06-11,R. Delgado,Land
+SR-1348,COPPERFIELD VENTURES,6619 Market Blvd,New Orleans,LA,70130,5650000,08/03/2024,Nathan Ford,Office
+SR-1349,Maple Crest Realty,3505 Franklin Blvd,Boston,MA,02110,"$14,650,000","March 4, 2024",Priya Nair,Multifamily
+SR-1350,HOLLOW CREEK TRUST,4819 Fillmore Pkwy,Chicago,IL,60601,3300000,10/04/2024,J. Alvarez,Land
+SR-1351,Oakwood Properties Grp,154 Bay Ln,Miami,FL,33131,"$11,550,000",15-Nov-24,Maria Chen,Retail
+SR-1352,WINDERMERE COMMERCIAL,5268 Highland Parkway,Phoenix,az,85018,10350000,"August 25, 2024",R. Delgado,Industrial
+SR-1353,Steelyard Commercial,6153 Liberty Parkway,miami,FL,33131,10350000,"December 10, 2024",Alicia Fox,Multifamily
+SR-1354,Marlin Bay Ventures,"7310 Century Street, 4th Floor",New Orleans,LA,70130,8900000,22-Oct-24,Wendy Park,Retail
+SR-1355,Summit Bay Realty,3164 Lakeshore Road,Memphis,tn,38118,"$1,450,000",2024-11-17,,Land
+SR-1356,valley forge realty,3463 Fillmore Pkwy,Denver,CO,80202,"$6,450,000",2024-03-07,Elena Ruiz,Industrial
+SR-1357,Pinecrest Residential Ptrs,2529 Elm Dr,Seattle,WA,98101-2694,"$5,400,000",17-Nov-24,Derek Wu,Multifamily
+SR-1358,Brightline Commercial Fnd,5444 Oak Street,San Francisco,CA,94117,12300000,2024-09-06,Priya Nair,Land
+SR-1359,Sable Point Capital,"899 Westheimer Parkway, Fl 23",Denver,CO,80202,"$3,900,000",09/04/2024,K. Bennett,Land
+SR-1360,WESTBROOK GROUP FND,9153 Congress Rd,Memphis,TN,38118-3270,5900000,"April 21, 2024",R. Delgado,Industrial
+SR-1361,Ironbridge Trust,3739 Yale Drive,Miami,FL,33131,"$10,850,000","July 23, 2024",Derek Wu,Multifamily
+SR-1362,NIGHTINGALE PROPERTIES,7401 Sunset Dr,Atlanta,GA,30303,10350000,05/19/2024,J. Alvarez,Land
+SR-1363,Highland Park Partners,1046 Oak Ln,San Francisco,CA,94117,11750000,"November 26, 2024",Derek Wu,Industrial
+SR-1364,Vantage Point Partners,"4622 Industrial Drive, Fl 1",Denver,co,80202,8050000,2024-06-17,S. Whitfield,Land
+SR-1365,harborview properties,514 Meridian Avenue,Atlanta,GA,30303,"$5,800,000",20-Oct-24,S. Whitfield,Multifamily
+SR-1366,Hollow Creek Investors,9002 Harbor Ln,Portland,OR,97201,900000,"October 29, 2024",Elena Ruiz,Office
+SR-1367,UNDERHILL HOLDINGS,"1208 Bannock Lane, Suite 5",New Orleans,LA,70130,"$11,000,000","August 28, 2024",J. Alvarez,Multifamily
+SR-1368,Vantage  Point Residential Inc.,9522 Century Boulevard,san francisco,ca,94117,"$1,050,000","November 24, 2024",Wendy Park,Multifamily
+SR-1369,Highland Park Industrial,7393 Franklin Rd,Nashville,tn,37217,"$1,900,000","July 7, 2024",,Industrial
+SR-1370,Summit Bay Residential Grp,5018 Peachtree Road,Seattle,WA,98101,11350000,12/23/2024,Derek Wu,Land
+SR-1371,Ironbridge Industrial,,San Francisco,CA,94117,6050000,02/17/2024,J. Alvarez,Retail
+SR-1372,lakeshore partners ptrs,5887 Independent Dr,Nashville,TN,37217,8750000,2024-09-06,Maria Chen,Retail
+SR-1373,Yellowpine Development,1793 Westheimer Ln,New Orleans,LA,70130,8650000,11/13/2024,Maria Chen,Office
+SR-1374,Ironbridge Retail,"9494 Sunset Parkway, Suite 31",Houston,TX,77006,"$6,200,000",04-Dec-24,J. Alvarez,Multifamily
+SR-1375,Crestpoint Investors Inc,2445 Washington Dr,Seattle,WA,98101,"$11,850,000",08/04/2024,Maria Chen,Retail
+SR-1376,bayshore group,8220 Liberty Street,Nashville,TN,37217-2655,"$10,850,000","May 2, 2024",Priya Nair,Retail
+SR-1377,LARKSPUR TRUST,5971 Liberty St,Atlanta,GA,30303,"$6,900,000",01/02/2024,Nathan Ford,Multifamily
+SR-1378,Marlin Bay Capital,9289 Peachtree Ln,Austin,tx,78701-5322,9800000,06/20/2024,Derek Wu,Multifamily
+SR-1379,Union Pacific Ventures,7931 Jefferson Street,San Francisco,ca,94117,8550000,"May 28, 2024",Wendy Park,Industrial
+SR-1380,Canyon Point Holdings,7999 Grant St,Boston,MA,02110,"$13,150,000",07/05/2024,Elena Ruiz,Retail
+SR-1381,Ironwood Residential,6062 Grant St,Memphis,tn,38118,10450000,"May 5, 2024",R. Delgado,Land
+SR-1382,Cascade Fund,6368 Meridian Dr,Chicago,IL,60601,"$7,850,000",09/26/2024,Wendy Park,Industrial
+SR-1383,Hollow Creek Residential,4490 Yale Rd,Miami,FL,33131,"$4,550,000",2024-10-17,S. Whitfield,Land
+SR-1384,Bayshore Logistics LLC,1285 Heritage Blvd,Seattle,WA,98101,"$13,300,000",03-Feb-24,J. Alvarez,Office
+SR-1385,Timberlake Logistics,"3661 Heritage Dr, Ste 6",Atlanta,ga,30303,"$6,400,000","December 31, 2024",R. Delgado,Multifamily
+SR-1386,WILLOWBROOK INVESTORS,"5663 Century Parkway, Fl 20",Chicago,IL,60601,"$5,900,000",01-Nov-24,S. Whitfield,Industrial
+SR-1387,falcon creek ventures,118 Liberty Avenue,Nashville,TN,37217,8800000,"October 6, 2024",Elena Ruiz,Multifamily
+SR-1388,Amberleaf Residential,"4610 Fillmore Ave, Suite 27",New Orleans,LA,70130,4050000,"February 15, 2024",,Multifamily
+SR-1389,Lakeshore Residential LLC,2588 Washington Road,Austin,TX,78701,3250000,22-Sep-24,J. Alvarez,Office
+SR-1390,Golden Gate Industrial,1948 Grant Drive,San Francisco,CA,94117,"$4,750,000","January 28, 2024",J. Alvarez,Multifamily
+SR-1391,Hearthstone Logistics LLC,"5420 Bay Dr, Ste 39",Portland,OR,97201,2200000,"March 2, 2024",Priya Nair,Retail
+SR-1392,Westbrook Trust,716 Canal Road,Boston,ma,02110,4400000,2024-12-14,Wendy Park,Land
+SR-1393,Steelyard Development,"2649 Canal Ln, Suite 38",Houston,TX,77006,,"September 9, 2024",Alicia Fox,Multifamily
+SR-1394,Northgate Holdings  Inc.,7733 Meridian Ave,Nashville,TN,37217,1000000,"December 2, 2024",K. Bennett,Retail
+SR-1395,OVERLOOK CAPITAL FND,5624 Harbor Road,Austin,TX,78701,"$4,350,000","February 2, 2024",Maria Chen,Multifamily
+SR-1396,UNDERHILL DEVELOPMENT,1137 Grant Dr,Houston,TX,77006,9700000,21-Oct-24,,Office
+SR-1397,Union  Pacific Capital,"2460 Union Ave, Suite 32",Atlanta,GA,30303,10600000,13-Dec-24,J. Alvarez,Land
+SR-1399,MARLIN BAY TRUST INC.,949 Congress Lane,Seattle,WA,98101-6629,"$10,900,000",06-Feb-24,Nathan Ford,Land
+SR-1400,Bayshore Logistics LLC,1285 Heritage Blvd,Seattle,WA,98101,"$13,300,000",03-Feb-24,J. Alvarez,Office
+SR-1401,Canyon Point Investors Fnd,7943 Harbor Ave,Atlanta,GA,30303,7150000,2024-04-20,K. Bennett,Multifamily
