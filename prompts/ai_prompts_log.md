@@ -267,3 +267,15 @@ Verified the four tabs now sit at equal ~317px widths spanning the full content 
 README's "Run the UI" section (it still described the old fixed-limit-20, stacked-card
 behavior) to match the tab layout and per-click batch cycling. Backfilled this log with
 entries 13-17, which had accumulated without being recorded.
+
+## 19. Remove README's "What I built" section
+
+> Now let's clean up the readme. Delete the whole what I will [built] section, the Python's
+> output and both JSON terms, all of it. Don't move it anywhere. Just remove it. and
+> everything else, structure setup, running the full pipeline, stays exactly as it is and
+> keep adding prompts to log md file
+
+Deleted the entire "What I built" section (the captured `pytest -v` output and both
+financing/broker role JSON dumps) from `README.md` - 504 lines removed, nothing else touched.
+Structure, Setup, "Run the full pipeline," "Run the app," and "Run tests" are untouched;
+"How this was built" now follows directly after "Run tests."
