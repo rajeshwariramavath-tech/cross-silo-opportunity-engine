@@ -33,8 +33,18 @@ prompts/ai_prompts_log.md       # Log of the prompts used to build this project
 ## Setup
 
 ```
-pip install -e ".[dev]"        # core + test dependencies
-pip install -e ".[dev,llm]"    # add the Anthropic SDK for opportunity_detection's --rationale
+pip install -e ".[dev]"          # core + test dependencies
+pip install -e ".[dev,llm]"      # add the Anthropic SDK for opportunity_detection's --rationale
+pip install -e ".[dev,llm,api]"  # add FastAPI/uvicorn/requests for api/main.py
+```
+
+### Frontend (React UI)
+
+Requires [Node.js](https://nodejs.org/) 18+.
+
+```
+cd frontend
+npm install
 ```
 
 ## Run the full pipeline
@@ -46,6 +56,38 @@ python -m cross_silo_opportunity_engine.pipeline --role <role>
 `<role>` is one of `admin`, `broker`, `financing`, `valuation`, `property_management`. Prints
 the final, role-scoped opportunity list as JSON and leaves each stage's intermediate CSV in
 `data/processed/`.
+
+## Run the app
+
+The frontend drives the pipeline through the API, so both servers need to be running.
+
+```
+# terminal 1 - API (from the repo root)
+uvicorn api.main:app --port 8000
+
+# terminal 2 - frontend
+cd frontend
+npm run dev
+```
+
+Then open http://localhost:5173. Four stage tabs run left to right; each stays disabled until
+the one before it succeeds, and a checkmark appears on a tab once it's done:
+
+1. **Ingestion** - each click reads the next 10-row batch from `/sales-records` and
+   `/debt-records`, then `POST /ingest?limit=10&offset=<cursor>` and shows the canonical
+   records. Clicking again advances to the next batch; once the dataset is exhausted it
+   circles back to the start. You can return to this tab any time to run more batches, even
+   after later stages are unlocked.
+2. **Entity resolution** - `POST /resolve-entities`, shows every scored pair with a
+   color-coded outcome badge (auto-match / review queue / auto-reject).
+3. **Opportunity detection** - `POST /detect-opportunities`, shows the ranked results.
+4. **Governance** - pick a role (`admin`, `broker`, `financing`, `valuation`,
+   `property_management`) and `GET /opportunities?role=<role>` shows that role's scoped view -
+   this one re-runs the full, unlimited pipeline, so its counts are larger than stage 1's
+   10-row-per-click batches.
+
+The API's CORS policy only allows `http://localhost:5173`, so run the frontend on Vite's
+default port.
 
 ## Run tests
 

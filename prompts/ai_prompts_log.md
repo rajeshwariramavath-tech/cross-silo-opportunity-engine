@@ -168,3 +168,102 @@ with blocking, 10,189 pairs in ~0.52-0.56s - about a 14.5x reduction in pairs an
 speedup**, with per-pair cost essentially unchanged (~52-56 us/pair either way, confirming the
 gain is entirely from doing less work, not a faster scorer). Full test suite (93 tests) and the
 full pipeline both run clean on the new dataset.
+
+## 13. CORS + the React frontend
+
+> Also add CORS so http://localhost:5173 is allowed to call the API then let's build the
+> frontend. Scaffold a Vite + React app in frontend/. I want one single page, no tabs, no
+> router just a clean scrolling page. Give it a commercial realestate feel: navy and gold,
+> Playfair Display for headings by pulling it from Google Fonts, Inter for body text, cream
+> background, cards with a subtle shadow instead of flat white everywhere. Header up top:
+> "Cross-Silo Opportunity Engine" with a short subtitle underneath. Below that, show all four
+> stages stacked one after another, connected by a numbered timeline like a stepper, each one
+> in its own card: Ingestion - a button that calls POST /ingest?limit=20 (grab the raw counts
+> from /sales-records and /debt-records first, same limit), then show the canonical records it
+> produced in a table. Entity resolution - button calls POST /resolve-entities, show the
+> matches with a confidence/outcome column, color-coded by outcome. Opportunity detection -
+> button calls POST /detect-opportunities, show the ranked results. Governance - a role
+> dropdown plus a button that calls GET /opportunities?role=X and shows the scoped result. Each
+> stage should stay locked - button actually disabled, not just grayed out - until the one
+> before it has successfully run. Dim the locked ones so it's obvious. If a call fails, show
+> the error right there in that stage's card instead of failing silently. Once it's built, run
+> both servers and walk through all four stages to make sure they actually work in order, and
+> that switching the role in stage 4 really does change what fields show up.
+
+Added `CORSMiddleware` to `api/main.py` allowing `http://localhost:5173`. Had to install
+Node.js first - winget hung indefinitely for unclear reasons, so fetched the portable Node.js
+binary directly instead. Scaffolded `frontend/` with `npm create vite@latest -- --template
+react`, then wrote the real app: navy/gold palette sampled conceptually to match the existing
+architecture-diagram colors, Playfair Display + Inter via Google Fonts, a numbered stepper of
+four stacked cards, `disabled`-attribute locking, and per-card inline error boxes. Verified
+with a real headless-browser walkthrough (not just code review): confirmed stage buttons were
+genuinely `disabled` before their prerequisite ran, watched real data flow through all four
+stages, and confirmed switching roles in stage 4 actually changes which fields render
+(financing vs. broker vs. property_management each showed a different, correct field set).
+
+## 14. README: frontend setup + run instructions
+
+> In the setup section in read.me file add the react setup instructions and how to run the UI
+
+Added a "Frontend (React UI)" subsection under Setup (Node requirement, `npm install`) and a
+new "Run the UI" section mirroring the existing "Run the full pipeline"/"Run tests" style -
+the two-terminal startup, the URL, and a walkthrough of what each stage card does.
+
+## 15. Fix uvicorn 404 at /
+
+> now lets fix the uvicorn [pasted terminal output showing GET / returning 404 Not Found]
+
+Nothing was actually broken - the server started cleanly (confirming the `sys.path` fix from
+the API-adapters work holds up in a fresh venv too), and the 404 was just FastAPI correctly
+reporting that no route exists at `/` (only `/docs`, `/sales-records`, etc. are defined). Added
+a `GET /` handler that redirects to `/docs`, verified live (`GET /` -> `307` -> `/docs` -> `200`).
+
+## 16. Vertical scroll, generic copy, real batch cycling
+
+> In the App.JS, the data table wrapper only scrolls horizontally right now. Add vertical
+> scrolling too and also make the header sub header generic and also do not specify execution
+> of twenty rows, and it only runs once right now. Whenever user clicks on run ingestion, pick
+> the first ten records from both sales and debt, and then run the ingestion and normalization
+> and the rest of the steps. So every click do the same and once all the records are finished
+> and then circle it back.
+
+Added `max-height` + `overflow-y: auto` (with a sticky header) to `.table-wrap`. Added
+`offset` support to `/sales-records`, `/debt-records`, and `/ingest` on the backend (a
+`_windowed()` helper and an offset-aware `_LimitedAdapter`), and a `cursor` in the frontend
+that advances by 10 rows every click, wrapping back to 0 once both sources are exhausted.
+Reworded stage 1's description to be generic (no hardcoded row count). Verified with 42
+scripted clicks against the real 400-row dataset: batch start sequence went `1, 11, 21, ...,
+391`, then wrapped straight back to `1` - confirmed circling through the full dataset, not
+just re-running the same batch.
+
+## 17. Tab layout
+
+> Let's make all the four stages tab style, side by side, and first tab should be active, and
+> the rest should be grayed out. And it should follow the same model as before of displaying
+> and running one after the other and provide some [affordance] if the user wants to execute
+> the next batch
+
+Replaced the stacked-card stepper with a horizontal tab bar (tab 1 active by default, tabs
+2-4 genuinely `disabled` until the stage before them succeeds, a checkmark on completed tabs).
+Simplified `StageCard` to a plain panel since only the active tab's content ever renders.
+Renamed the ingestion button to "Run Next Batch" and added a hint line showing the exact row
+range the next click will process. Verified live: a forced click on a locked tab did nothing,
+tabs unlocked in the correct order, and returning to tab 1 after visiting tab 2 and running
+another batch still advanced correctly (proving state isn't lost on tab switches).
+
+## 18. Widen the layout + spread tabs + catch up the docs
+
+> two things. The page wheels too narrow and boxed in. Widen the content area so it uses more
+> of the page like a real website, not a skinny centered column. Keep the header title and
+> subtitles centered as they are, but spread the four stage steps even across leader full width
+> instead of bunched and stack together on one side. Also, update the prompts log markdown
+> file, append the prompts used to build the frontend. And also update the readme file to have
+> the frontend setup and instructions for running the UI.
+
+Widened `.app` from a 920px column to 1360px, capped the header subtitle at 640px so its line
+length stays readable inside the wider page, and left the tab bar's existing `flex: 1` layout
+alone - it was already built to spread evenly, it just had a narrow container to spread across.
+Verified the four tabs now sit at equal ~317px widths spanning the full content area. Refreshed
+README's "Run the UI" section (it still described the old fixed-limit-20, stacked-card
+behavior) to match the tab layout and per-click batch cycling. Backfilled this log with
+entries 13-17, which had accumulated without being recorded.

@@ -16,11 +16,14 @@ from __future__ import annotations
 
 import csv
 import dataclasses
+import itertools
 import sys
 from pathlib import Path
-from typing import Any
+from typing import Any, Iterator
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Query
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import RedirectResponse
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 RAW_DIR = REPO_ROOT / "data" / "raw"
@@ -43,13 +46,33 @@ import entity_resolution as entity_resolution_stage  # noqa: E402
 import ingestion as ingestion_stage  # noqa: E402
 import opportunity_detection as opportunity_detection_stage  # noqa: E402
 from cross_silo_opportunity_engine.governance.roles import Role  # noqa: E402
+from cross_silo_opportunity_engine.ingestion.adapters.base import BaseSourceAdapter  # noqa: E402
 from cross_silo_opportunity_engine.pipeline import run_pipeline  # noqa: E402
+
+LimitQuery = Query(default=None, ge=1, description="Only read this many rows per source.")
+OffsetQuery = Query(default=0, ge=0, description="Skip this many rows per source before reading.")
 
 app = FastAPI(
     title="Cross-Silo Opportunity Engine API",
     description="HTTP surface over the four pipeline stages: ingestion, entity resolution, "
     "opportunity detection, and governance.",
 )
+
+# The Vite dev server runs on localhost:5173 by default - allow the frontend/ app to call this
+# API directly from the browser during local development.
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+
+@app.get("/", include_in_schema=False)
+def root() -> RedirectResponse:
+    """No API content lives at / - send visitors to the interactive Swagger UI instead of a
+    bare 404."""
+    return RedirectResponse(url="/docs")
 
 
 def _read_csv_rows(path: Path) -> list[dict[str, Any]]:
@@ -62,34 +85,69 @@ def _require(path: Path, upstream_endpoint: str) -> None:
         raise HTTPException(status_code=400, detail=f"{path.name} not found - call {upstream_endpoint} first.")
 
 
+class _LimitedAdapter(BaseSourceAdapter):
+    """Wraps another adapter and reads only a `limit`-row window starting at `offset`.
+
+    Exists only to honor the optional ?limit=/?offset= query params without touching
+    ingestion.run_ingestion() itself - to_canonical() is delegated unchanged, so normalization
+    behaves exactly as it would for the unwrapped adapter.
+    """
+
+    def __init__(self, adapter: BaseSourceAdapter, limit: int, offset: int = 0):
+        self._adapter = adapter
+        self._limit = limit
+        self._offset = offset
+        self.source_system = adapter.source_system
+
+    def read(self) -> Iterator[dict[str, Any]]:
+        return itertools.islice(self._adapter.read(), self._offset, self._offset + self._limit)
+
+    def to_canonical(self, raw_record: dict[str, Any]):
+        return self._adapter.to_canonical(raw_record)
+
+
+def _windowed(rows: list[dict[str, Any]], limit: int | None, offset: int) -> list[dict[str, Any]]:
+    return rows[offset : offset + limit] if limit is not None else rows[offset:]
+
+
 @app.get("/sales-records")
-def sales_records() -> list[dict[str, Any]]:
+def sales_records(limit: int | None = LimitQuery, offset: int = OffsetQuery) -> list[dict[str, Any]]:
     """Raw sales-system rows, straight from data/raw/sales_records.csv, as JSON.
 
     Stands in for the sales system's own API - SalesAPIAdapter consumes this exact endpoint.
+    Optional ?limit=N&offset=M returns rows M..M+N - use offset to page through the file in
+    batches instead of always reading the same rows from the start.
     """
-    return _read_csv_rows(RAW_DIR / "sales_records.csv")
+    rows = _read_csv_rows(RAW_DIR / "sales_records.csv")
+    return _windowed(rows, limit, offset)
 
 
 @app.get("/debt-records")
-def debt_records() -> list[dict[str, Any]]:
+def debt_records(limit: int | None = LimitQuery, offset: int = OffsetQuery) -> list[dict[str, Any]]:
     """Raw debt-system rows, straight from data/raw/debt_records.csv, as JSON.
 
     Stands in for the debt system's own API - DebtAPIAdapter consumes this exact endpoint.
+    Optional ?limit=N&offset=M returns rows M..M+N - use offset to page through the file in
+    batches instead of always reading the same rows from the start.
     """
-    return _read_csv_rows(RAW_DIR / "debt_records.csv")
+    rows = _read_csv_rows(RAW_DIR / "debt_records.csv")
+    return _windowed(rows, limit, offset)
 
 
 @app.post("/ingest")
-def ingest() -> dict[str, Any]:
+def ingest(limit: int | None = LimitQuery, offset: int = OffsetQuery) -> dict[str, Any]:
     """Runs Stage 1 (ingestion & normalization).
 
     Reads both raw CSVs, normalizes every record into the shared canonical schema, flags
     invalid rows instead of dropping them, writes data/processed/canonical_records.csv and
     ingestion_rejects.csv, and returns the canonical records. Calls
-    ingestion.run_ingestion() - the same function the ingestion.py CLI runs.
+    ingestion.run_ingestion() - the same function the ingestion.py CLI runs. Optional
+    ?limit=N&offset=M reads only rows M..M+N per source before processing, so repeated calls
+    can page through the dataset instead of reprocessing the same rows every time.
     """
     adapters = ingestion_stage.build_adapters("csv", ingestion_stage.DEFAULT_API_BASE_URL)
+    if limit is not None:
+        adapters = [(_LimitedAdapter(adapter, limit, offset), required_fields) for adapter, required_fields in adapters]
     canonical_records, rejected_rows = ingestion_stage.run_ingestion(adapters)
     ingestion_stage.write_canonical_records(canonical_records, ingestion_stage.PROCESSED_DIR / "canonical_records.csv")
     ingestion_stage.write_rejects(rejected_rows, ingestion_stage.PROCESSED_DIR / "ingestion_rejects.csv")
