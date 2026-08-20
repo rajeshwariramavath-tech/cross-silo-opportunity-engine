@@ -279,3 +279,18 @@ Deleted the entire "What I built" section (the captured `pytest -v` output and b
 financing/broker role JSON dumps) from `README.md` - 504 lines removed, nothing else touched.
 Structure, Setup, "Run the full pipeline," "Run the app," and "Run tests" are untouched;
 "How this was built" now follows directly after "Run tests."
+
+## 20. Split Setup into Backend / Frontend
+
+> clean up the readme keep the cross silo opportunity engine summary structure and in the
+> setup there should be two sections back end and front end and how to run the app. So for
+> back end there should be prereqs such as installation of python and setting back end and
+> how to run back end. And then for the front end installation of node and setting up the
+> front end and then running the full pipeline running the app. And then there should be a
+> section added for how to run the tests. And then the last section, how this was built.
+
+Restructured the Setup section into `### Backend` (Python 3.10+ prerequisite, the three
+`pip install` variants, and the `uvicorn` command to run it) and `### Frontend` (Node.js 18+
+prerequisite, `npm install`). Left "Run the full pipeline," "Run the app," "Run tests," and
+"How this was built" as their own top-level sections in the same order, untouched otherwise -
+only the Setup section's internals changed.

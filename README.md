@@ -1,8 +1,12 @@
 # cross-silo-opportunity-engine
 
+[![CI](https://github.com/rajeshwariramavath-tech/cross-silo-opportunity-engine/actions/workflows/ci.yml/badge.svg)](https://github.com/rajeshwariramavath-tech/cross-silo-opportunity-engine/actions)
+
 Connects data across siloed commercial real estate lines of business so cross-business
 opportunities surface automatically, without giving anyone unrestricted access to sensitive
-data they shouldn't see. See [docs/architecture.md](docs/architecture.md) for the full design.
+data they shouldn't see.
+
+**Architecture:** [docs/architecture.md](docs/architecture.md)
 
 All four stages run end to end through `pipeline.py`: ingestion & normalization, entity
 resolution, opportunity detection, and governance & access control.
@@ -32,22 +36,38 @@ prompts/ai_prompts_log.md       # Log of the prompts used to build this project
 
 ## Setup
 
+**Prerequisites:** Python 3.10+ and [Node.js](https://nodejs.org/) 18+.
+
+### 1. Backend
+
+Install the package. Pick the extras you need:
+
+| Command | Adds |
+|---|---|
+| `pip install -e ".[dev]"` | Core + test dependencies (default) |
+| `pip install -e ".[dev,llm]"` | + Anthropic SDK, for `opportunity_detection`'s `--rationale` |
+| `pip install -e ".[dev,llm,api]"` | + FastAPI/uvicorn/requests, for `api/main.py` |
+
+Verify it's working:
+
 ```
-pip install -e ".[dev]"          # core + test dependencies
-pip install -e ".[dev,llm]"      # add the Anthropic SDK for opportunity_detection's --rationale
-pip install -e ".[dev,llm,api]"  # add FastAPI/uvicorn/requests for api/main.py
+uvicorn api.main:app --port 8000
 ```
 
-### Frontend (React UI)
+Open http://127.0.0.1:8000/docs — you should see the interactive Swagger UI.
 
-Requires [Node.js](https://nodejs.org/) 18+.
+### 2. Frontend
 
 ```
 cd frontend
 npm install
 ```
 
-## Run the full pipeline
+Setup's done — see [Usage](#usage) below to run the pipeline, the API, and the UI together.
+
+## Usage
+
+### Run the pipeline
 
 ```
 python -m cross_silo_opportunity_engine.pipeline --role <role>
@@ -57,7 +77,7 @@ python -m cross_silo_opportunity_engine.pipeline --role <role>
 the final, role-scoped opportunity list as JSON and leaves each stage's intermediate CSV in
 `data/processed/`.
 
-## Run the app
+### Run the app
 
 The frontend drives the pipeline through the API, so both servers need to be running.
 
@@ -76,7 +96,7 @@ the one before it succeeds, and a checkmark appears on a tab once it's done:
 The API's CORS policy only allows `http://localhost:5173`, so run the frontend on Vite's
 default port.
 
-## Run tests
+### Run tests
 
 ```
 pytest
