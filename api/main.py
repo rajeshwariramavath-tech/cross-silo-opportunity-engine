@@ -1,4 +1,5 @@
-"""HTTP surface over the four pipeline stages.
+"""HTTP surface over the pipeline: the three processing stages, plus governance-scoped access
+to their results.
 
 Every endpoint below is a thin wrapper: it calls the same load/run/write functions the
 command-line stage scripts (src/ingestion.py, src/entity_resolution.py,
@@ -54,8 +55,8 @@ OffsetQuery = Query(default=0, ge=0, description="Skip this many rows per source
 
 app = FastAPI(
     title="Cross-Silo Opportunity Engine API",
-    description="HTTP surface over the four pipeline stages: ingestion, entity resolution, "
-    "opportunity detection, and governance.",
+    description="HTTP surface over the three processing stages - ingestion, entity resolution, "
+    "opportunity detection - plus governance-scoped access to their results.",
 )
 
 # The Vite dev server runs on localhost:5173 by default - allow the frontend/ app to call this
@@ -202,8 +203,8 @@ def detect_opportunities() -> dict[str, Any]:
 
 @app.get("/opportunities")
 def opportunities_for_role(role: Role) -> dict[str, Any]:
-    """Runs the full four-stage pipeline end to end and returns the opportunity list scoped
-    to the given role.
+    """Runs the three processing stages end to end and returns the opportunity list, scoped
+    to the given role by governance at the point the result is served.
 
     Equivalent to `python -m cross_silo_opportunity_engine.pipeline --role <role>` - calls
     pipeline.run_pipeline(), which re-runs ingestion, entity resolution, and opportunity

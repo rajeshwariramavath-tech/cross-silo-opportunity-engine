@@ -1,5 +1,6 @@
-"""End-to-end check that run_pipeline() actually wires the four stages together correctly
-against the real data/raw CSVs - each stage's own tests already cover its internals."""
+"""End-to-end check that run_pipeline() actually wires the three processing stages and
+governance together correctly against the real data/raw CSVs - each part's own tests already
+cover its internals."""
 
 from cross_silo_opportunity_engine.governance.roles import Role
 from cross_silo_opportunity_engine.pipeline import run_pipeline

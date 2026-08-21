@@ -294,3 +294,50 @@ Restructured the Setup section into `### Backend` (Python 3.10+ prerequisite, th
 prerequisite, `npm install`). Left "Run the full pipeline," "Run the app," "Run tests," and
 "How this was built" as their own top-level sections in the same order, untouched otherwise -
 only the Setup section's internals changed.
+
+## 21. Add api/ and frontend/ to the Structure tree + verify node_modules is ignored
+
+> The structure section in README.md is out of date, it's missing api/ and frontend/
+> entirely. Add them in, same style as the rest of the tree, also add comments like the
+> others have. Also check .gitignore actually excludes frontend/node_modules, run git status
+> inside frontend/ and confirm node_modules isn't showing up as untracked or staged, If it's
+> not covered, add it.
+
+Verified first: `git check-ignore -v frontend/node_modules` confirmed `frontend/.gitignore`'s
+`node_modules` rule already covers it, and `git status` from both the repo root and from
+inside `frontend/` came back clean - nothing to add. Added `api/main.py` and `frontend/` to
+the README's Structure tree, column-aligned to match the existing entries (computed the exact
+padding rather than eyeballing it, to land on the same comment column as `tests/` and
+`prompts/ai_prompts_log.md`).
+
+## 22. Wording pass: governance as a boundary, not Stage 4
+
+> Architecture.md and architure diagram has changed, in one way. Governance is now described
+> as a boundary that wraps all three processing stages, not a fourth stage that runs after
+> them. Nothing has changed about execution order. scoping still happens when a result is
+> served, it's just described differently now in the diagram. So go through both front end
+> and back end and check for any references that calls governance as stage four... in
+> comments, docstrings, or any front end files or back end files and update the wording to
+> match. Do not change any actual logic. There's a wording and labeling pass, also on the UI,
+> remove the stage four in the last tab and just rename it as Acess Data, and also update the
+> readme.md accordingly and prompts log
+
+Read the updated `docs/architecture.md` and `docs/Architecture_Diagram.png` first to get the
+actual new framing rather than guessing it: governance wraps Ingestion, Entity Resolution, and
+Opportunity Detection as a boundary (enforced via Roles & Permissions and Lineage in the
+storage layer), with a separate "Serve" layer (REST API + Client/BI) as where scoping is
+actually applied at request time. Grepped the whole repo for "Stage 4" / "four stages" /
+"four-stage" and updated every hit in code and docs to describe governance as a boundary
+enforced at serve time instead of a numbered fourth stage: docstrings in `api/main.py`,
+`src/governance.py`, `src/cross_silo_opportunity_engine/governance/__init__.py`,
+`src/cross_silo_opportunity_engine/pipeline.py`, `tests/test_pipeline.py`, a stale color-sampling
+comment in `scripts/generate_report.py`, and the Structure/summary text in `README.md`. In the
+UI, renamed the fourth tab's label and panel title from "Governance"/"Governance & Access
+Control" to "Access Data" in `frontend/src/App.jsx`, and reworded a comment in `DataTable.jsx`
+that referenced "the governance stage." Left `docs/architecture.md` itself untouched (it's the
+source of truth this was matched against) and left old log entries as-is (historical record,
+not something to rewrite). Deliberately did not rename internal JS/Python identifiers
+(`stage4`, `runGovernance`, etc.) or touch any actual logic - verified with a live browser
+walkthrough that all four tabs still unlock in the same order and the renamed tab still calls
+the real governance-scoped endpoint and returns the same data (117 opportunities scoped to
+financing, unchanged). Full backend test suite (93 tests) still passes.

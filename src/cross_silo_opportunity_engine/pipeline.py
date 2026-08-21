@@ -1,9 +1,12 @@
-"""Wires the four stages together: ingestion -> entity resolution -> opportunity detection -> governance.
+"""Wires the pipeline together: ingestion -> entity resolution -> opportunity detection, then
+governance-scoped delivery of the result.
 
-Each stage's own module (src/ingestion.py, src/entity_resolution.py, src/opportunity_detection.py,
+Each part's own module (src/ingestion.py, src/entity_resolution.py, src/opportunity_detection.py,
 src/governance.py) already does the real work and is independently runnable; this module only
 sequences them, the same way running the four scripts by hand would - read the upstream CSV,
 call the stage's existing functions, write the downstream CSV, hand off to the next stage.
+Governance isn't a fourth stage in that sequence, though - it's the boundary the other three
+already operate inside, applied here at the point the final result is served.
 """
 
 from __future__ import annotations
@@ -26,9 +29,9 @@ PROCESSED_DIR = ingestion_stage.PROCESSED_DIR
 
 
 def run_pipeline(requesting_role: Role) -> list[dict[str, Any]]:
-    """Runs all four stages in order and returns the final opportunity list, scoped to
-    requesting_role. Also leaves the same intermediate CSVs in data/processed/ that running
-    each stage script separately would."""
+    """Runs the three processing stages in order, then applies governance to return the final
+    opportunity list scoped to requesting_role. Also leaves the same intermediate CSVs in
+    data/processed/ that running each stage script separately would."""
     adapters = [
         (ingestion_stage.SalesCSVAdapter(ingestion_stage.RAW_DIR / "sales_records.csv"), ingestion_stage.SALES_REQUIRED_RAW_FIELDS),
         (ingestion_stage.DebtCSVAdapter(ingestion_stage.RAW_DIR / "debt_records.csv"), ingestion_stage.DEBT_REQUIRED_RAW_FIELDS),

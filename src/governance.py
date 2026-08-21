@@ -1,10 +1,14 @@
-"""Stage 4 — governance & access control, runnable end to end.
+"""Governance & access control, runnable end to end.
 
-Reads data/processed/opportunities.csv (Stage 3's output) and, for a requesting role, returns
-a filtered view of every opportunity: which fields that role gets is decided once, by the
-role-to-field-permissions mapping in cross_silo_opportunity_engine.governance.permissions, and
-applied the same way at every request - the same opportunity renders as a full record for one
-role and a near-empty flag for another.
+Governance isn't a stage the pipeline runs through in sequence - it's the boundary the three
+processing stages (ingestion, entity resolution, opportunity detection) already operate inside,
+and this is where that boundary is actually enforced: at the point a result is served.
+
+Reads data/processed/opportunities.csv (opportunity detection's output) and, for a requesting
+role, returns a filtered view of every opportunity: which fields that role gets is decided once,
+by the role-to-field-permissions mapping in cross_silo_opportunity_engine.governance.permissions,
+and applied the same way at every request - the same opportunity renders as a full record for
+one role and a near-empty flag for another.
 
 Every field that IS returned carries its own source_system/source_id lineage (see
 cross_silo_opportunity_engine.governance.lineage.trace_field), so scoping down what a role

@@ -35,7 +35,7 @@ GREEN = {"bg": "#E3F6EE", "border": "#1F8A63", "text": "#0E6B4A"}    # Stage 1/2
 AMBER = {"bg": "#FBF0D3", "border": "#A67C00", "text": "#7A5C00"}    # Review queue
 RED = {"bg": "#FCE4E1", "border": "#B33A3A", "text": "#A13030"}      # Auto-reject
 RUST = {"bg": "#FCEADD", "border": "#C1531F", "text": "#A8431B"}     # Stage 3
-PURPLE = {"bg": "#EEEAFB", "border": "#4A3F91", "text": "#3D3480"}   # Stage 4 / governance
+PURPLE = {"bg": "#EEEAFB", "border": "#4A3F91", "text": "#3D3480"}   # Governance
 BEIGE = {"bg": "#EFECE2", "border": "#8A8578", "text": "#4A4640"}    # Source systems
 
 CANONICAL_FIELD_ORDER = [

@@ -12,7 +12,7 @@ function formatValue(value) {
 /**
  * Generic table: pass `columns` as an array of strings (plain field keys) or
  * { key, label?, render? } objects for custom formatting. Omit `columns` to derive them
- * from the keys of the first row - used by the governance stage, where the field set
+ * from the keys of the first row - used by the role-scoped access view, where the field set
  * genuinely differs by role and shouldn't be hardcoded here.
  */
 export default function DataTable({ rows, columns }) {

@@ -8,8 +8,9 @@ data they shouldn't see.
 
 **Architecture:** [docs/architecture.md](docs/architecture.md)
 
-All four stages run end to end through `pipeline.py`: ingestion & normalization, entity
-resolution, opportunity detection, and governance & access control.
+The three processing stages - ingestion & normalization, entity resolution, and opportunity
+detection - run end to end through `pipeline.py`, with governance & access control applied as
+a boundary around all three, enforced at the point a result is served.
 
 ## Structure
 
@@ -22,15 +23,17 @@ src/
 ├── ingestion.py               # Stage 1 entry point - CSV adapters, canonical output
 ├── entity_resolution.py       # Stage 2 entry point - candidate scoring, entity_matches.csv
 ├── opportunity_detection.py   # Stage 3 entry point - rules, ranking, opportunities.csv
-├── governance.py              # Stage 4 entry point - role-scoped CLI view
+├── governance.py              # Governance entry point - role-scoped CLI view
 └── cross_silo_opportunity_engine/
     ├── ingestion/              # Canonical schema, normalization, adapter interface
     ├── entity_resolution/      # Signals, scoring, three-outcome classification
     ├── opportunity_detection/  # Rules, ranking, optional LLM rationale
-    ├── governance/             # Roles, field permissions, access control
-    ├── pipeline.py             # Wires all four stages together, with a CLI
+    ├── governance/             # Roles, field permissions, access control - a boundary, not a stage
+    ├── pipeline.py             # Wires the three stages together, with a CLI
     └── config.py               # Shared thresholds and weights
-tests/                          # Tests for all four stages, package and entry points alike
+api/main.py                     # FastAPI app: HTTP surface over the three stages + governance
+frontend/                       # Vite + React UI - single page, tab layout, calls the API
+tests/                          # Tests for the three stages and governance, package and entry points alike
 prompts/ai_prompts_log.md       # Log of the prompts used to build this project
 ```
 
@@ -102,8 +105,8 @@ default port.
 pytest
 ```
 
-Tests cover all four stages - the generic package modules and the concrete entry-point
-scripts alike.
+Tests cover the three processing stages and governance - the generic package modules and the
+concrete entry-point scripts alike.
 
 ## How this was built
 

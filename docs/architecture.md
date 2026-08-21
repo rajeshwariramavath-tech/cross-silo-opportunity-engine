@@ -4,17 +4,13 @@
 
 ## The problem
 
-Commercial real estate firms are typically organized into separate lines of business —
-brokerage, financing, valuation, property management — each running its own systems, its own
-data model, and its own definition of a "client" or a "property." These systems rarely talk to
-each other. As a result, information that would be valuable across the firm often stays locked
-inside the team that generated it: a relationship one team has with a client isn't visible to
-another team that could act on it, and a signal that emerges in one system's data goes unseen
-by the teams positioned to respond to it. The result is missed business — not because the firm
-lacks the underlying information, but because that information is fragmented across systems
-that were never designed to connect. The core question this project answers is: how do you
-connect data across siloed lines of business so opportunities like that surface automatically,
-without giving everyone unrestricted access to sensitive data they shouldn't see.
+Commercial real estate firms are typically organized into separate lines of business - brokerage, financing, valuation, property management — each running its own systems, its own data model, and its own definition of a "client" or a "property." These systems rarely talk to each other. As a result, information that would be valuable across the firm often stays locked inside the team that generated it: a relationship one team has with a client isn't visible to another team that could act on it, and a signal that emerges in one system's data goes unseen by the teams positioned to respond to it. The result is missed business, not because the firm lacks the underlying information, but because that information is fragmented across systems that were never designed to connect.
+
+The core question this project answers: how do you connect data across siloed lines of business so opportunities like that surface automatically, without giving everyone unrestricted access to sensitive data they shouldn't see.
+
+## Sources
+
+Sales and Debt each keep their own record of the same physical world — a property, a borrower, a deal — described in their own format, with no field either system uses to look the other up. An address is written differently depending on which side entered it. An owner's name is abbreviated differently. There's no property_id shared between the two. This is the normal condition for two systems built independently, years apart, by different teams, for different purposes — and it's exactly the condition that makes the first stage necessary.
 
 ---
 
@@ -22,25 +18,13 @@ without giving everyone unrestricted access to sensitive data they shouldn't see
 
 ### Why this stage exists
 
-Records from different source systems describe the same real-world things in different words —
-different address formats, different name abbreviations, no shared identifier between systems.
-Before anything else can happen — before we can even ask "are these the same entity?" — every
-source needs to be rewritten into one common format the rest of the pipeline understands. Think
-of it as a translator: each source system speaks its own dialect, and this stage translates
-everything into one shared language.
+Before anything else can happen — before the system can even ask "are these two records the same thing?" — every source needs to be rewritten into one format the rest of the pipeline understands. Think of it as a translator: each source speaks its own dialect, and this stage is the only place that dialect is ever spoken.
 
 ### What actually happens
 
-One small adapter per source system. Each adapter's only job is to read its own system's native
-format and rewrite each record into a canonical (shared) shape: normalizing addresses (case,
-common abbreviations, stripping suite/floor into their own fields), normalizing entity names,
-and validating that required fields are present before anything moves downstream. Invalid
-records are flagged and logged rather than silently dropped or silently passed through.
+One adapter per source. Each adapter's only job is to read its source's native format and rewrite each record into a canonical shape: normalized addresses (case, common abbreviations, suite/floor split into their own fields), normalized entity names, and a check that every required field is present before anything moves downstream. Invalid records are flagged and logged, not silently dropped and not silently passed through — a missing field further down the pipeline should never be a mystery.
 
-Every canonical record also carries "where did this come from" metadata — its source system and
-its original record ID. This is easy to overlook but is what makes lineage, and therefore
-governance, possible later. Paying for it here means it doesn't have to be reconstructed
-downstream.
+Every canonical record also carries where it came from: its source system and its original record ID. This is the one piece of bookkeeping that's easy to skip and expensive to reconstruct later — it's what makes lineage, and therefore governance, possible at all.
 
 ---
 
@@ -48,29 +32,17 @@ downstream.
 
 ### Why this stage exists
 
-Once records are in a common shape, the real question can be asked: do two records from
-different systems describe the same underlying entity? There's no shared ID to look up — that
-identity has to be inferred from the content of the records themselves. And it's rarely
-black-and-white: some pairs clearly match, some clearly don't, and some sit in an ambiguous
-middle where the signals disagree slightly. Getting this wrong in either direction — false
-match or false non-match — means every downstream stage produces a wrong answer, so this stage
-has to be both careful and honest about its own uncertainty.
+With both sources in a common shape, the real question can finally be asked: do these two records describe the same underlying entity? There's no ID to look up — identity has to be inferred from content. And it's rarely binary. Some pairs clearly match, some clearly don't, and a meaningful number sit in an honest middle where the signals disagree. Getting this wrong in either direction poisons everything downstream, so this stage has to be careful, and it has to be willing to say "I'm not sure" instead of guessing.
 
 ### What actually happens
 
-Candidate record pairs are compared across several independent signals — typically normalized
-address similarity, normalized name similarity, and optionally geographic proximity. Those
-signal scores are combined into a single confidence score (a weighted combination, with weights
-chosen based on which signal is more reliable), and the result is sorted into one of three
-outcomes rather than forced into a binary decision:
+Candidate pairs aren't generated by comparing every Sales record to every Debt record — that's an O(n×m) cost that stops being viable well before real data volume. Records are first blocked by postal code, so a Sales record is only ever compared against Debt records that share its zip code; a Sales record in one zip has no business being scored against a Debt record two states away, and blocking is what keeps the pipeline from wasting cycles proving that. Within a block, three independent signals are scored — address similarity, name similarity, and geographic proximity where available — and combined into a single confidence score, weighted toward the more reliable signals. The result lands in one of three outcomes, not a forced yes/no:
 
-- **Auto-match** — confidence high enough to link automatically.
-- **Review queue** — confidence in an ambiguous middle range; sent to a human rather than guessed.
-- **Auto-reject** — confidence too low to be the same entity.
+Auto-match — confidence high enough to link automatically.
+Review queue — confidence in an honest middle range, routed to a human instead of guessed.
+Auto-reject — confidence too low to be the same entity.
 
-The three-outcome approach is the key design decision here. A single threshold forcing a
-yes/no answer means the system silently guesses on ambiguous cases; the three-outcome approach
-makes that uncertainty visible instead of hidden, and routes it to a human where it belongs.
+The three-outcome model is the load-bearing decision in this stage. A single threshold forcing a binary answer means the system silently guesses on every ambiguous case; three outcomes make that uncertainty visible instead of hidden, and put it in front of a person where it belongs.
 
 ---
 
@@ -78,87 +50,45 @@ makes that uncertainty visible instead of hidden, and routes it to a human where
 
 ### Why this stage exists
 
-A linked pair of records isn't automatically a business opportunity — most links are just "we
-now know these two records describe the same thing," not "someone should act on this today."
-This stage decides which resolved matches represent a real, timely opportunity worth surfacing
-to a person, and ranks them so the most valuable ones surface first.
+A resolved match isn't automatically a business opportunity — most matches just confirm "these two records describe the same thing," not "someone should act on this today." This stage decides which resolved matches are worth a person's attention right now, and ranks them so the most valuable ones surface first.
 
 ### What actually happens
 
-Resolved matches are run through explicit, deterministic business rules — not a machine
-learning model, deliberately, because rules are auditable. If someone later asks "why did the
-system flag this?", the answer is the exact condition that fired, not an opaque score. Rules
-combine factors like timing/urgency, a minimum value threshold, and evidence of an existing
-relationship, and qualifying records are ranked by a composite of those factors.
+Resolved matches run through explicit, deterministic rules — not a model, deliberately, because rules are auditable in a way a model's confidence score isn't. If someone asks "why did this surface," the answer is the exact condition that fired, not an approximation. The rules in play: a minimum deal-value threshold, a loan-maturity urgency window, a past-due flag, and relationship strength — each with its own weight, so a past-due loan outranks a merely large one, because urgency matters more than size when the question is what to act on first.
 
-An optional LLM step can follow the rules to write a short, plain-language explanation of *why*
-a given record was flagged — but it only explains a decision the rules already made, grounded
-strictly in that record's own fields. It never makes the underlying business decision itself;
-that separation is what keeps the system auditable in a regulated, relationship-driven business.
+### Where the LLM fits, and where it doesn't. 
+
+The diagram shows a two-way arrow between this stage and an external LLM, and that shape is intentional: the rules decide, the LLM only explains. Given a record the rules have already flagged, the LLM writes a short, grounded rationale using nothing but that record's own fields — it never sees the full candidate pool, never re-ranks anything, and never gets a vote on whether something qualifies. That boundary is what keeps the system's decisions auditable in a regulated, relationship-driven business: a rule can be pointed to and defended, a model's judgment call can't.
 
 ---
 
-## Stage 4 — Governance & access control
+###  Why governance wraps the pipeline instead of trailing it
 
-### Why this stage exists
+Treating governance as a boundary around all three stages, is the more honest model: every stage operates inside the constraint that its output must remain traceable and scopeable, not before that constraint gets applied.
 
-Everything up to this point has been about combining data across systems. This last stage is
-about deciding who is allowed to see the result, and how much of it. An opportunity record can
-combine information from multiple sides of the business, some of it sensitive. Without an
-explicit governance layer, a pipeline like this either leaks sensitive information to people who
-shouldn't see it, or gets locked down so tightly it stops being useful to anyone. Neither is
-acceptable.
+Concretely, this is enforced by two things living in the storage layer, not in any one stage:
 
-Governance isn't only about the final delivery step, either — lineage captured all the way back
-at ingestion is what makes it possible to answer "where did this number come from?" later,
-tracing any field in the final output back to its original source record.
+### Roles & Permissions
+ 
+  a role-to-field mapping, defined once, read every time a result is served. A broker's view and a financing view of the same opportunity differ by which fields are visible, not by which opportunities exist; property management, sitting outside both lines of business, gets the minimal signal that an opportunity exists with the counterparty and dollar figures withheld.
+  
+### Lineage 
 
-### What actually happens
+Trace from any field in a served result back to the exact source record it came from, on both the Sales and Debt side where a field was derived from both.
 
-When a user requests results, the pipeline checks that user's role and applies scoping rules
-before returning anything — the same underlying opportunity is rendered differently depending on
-who's asking, from a full record with complete detail down to a minimal flag with sensitive
-terms withheld, based on a role-to-field-permissions mapping defined once and applied
-consistently at every request.
+### Serve
 
----
+This is where scoping is actually applied and results reach a person. The REST API layer sits behind role-scoped endpoints and serves the client — a small UI that walks through all four stages in order, so entity resolution's confidence buckets and governance's per-role field differences are something you can watch happen, not just read about. BI Reports / Dashboard is the same governed data rendered for reporting rather than interactive walkthrough. Neither consumer talks to the storage layer directly; both go through the same API, which means there's exactly one place role-scoping logic lives, not one per consumer.
 
-## Putting it all together
+### Putting it all together
 
-Records enter the pipeline in whatever messy, inconsistent shape their source system produced
-them in, with no shared identifier connecting them across systems. Ingestion rewrites them into
-one canonical shape. Entity resolution scores their similarity and either links them
-automatically, rejects them, or routes the ambiguous cases to a human. Opportunity detection
-applies auditable rules to the resolved matches, ranks the results, and can optionally attach a
-grounded, plain-language explanation. Governance then scopes what gets delivered based on the
-requesting user's role, with every field traceable back to the exact source record it came from.
+Records enter the pipeline in whatever inconsistent shape their source produced, with no shared identifier connecting them. Ingestion rewrites them into one canonical shape. Entity resolution blocks and scores them, linking, rejecting, or routing the honest middle to a human. Opportunity detection applies auditable rules to the resolved matches, ranks them, and can attach a grounded explanation without ever letting that explanation make the decision. Every one of those outputs lands in a storage layer that the next stage reads from rather than receiving in memory, and every field in that storage layer carries the lineage that makes it traceable back to its source. Governance doesn't wait until the end to matter — it's the constraint the first three stages have been operating inside the entire time — and Serve is the one place that constraint is actually enforced, for every consumer, through one shared path.
 
-Each stage exists because the previous stage's output isn't yet useful on its own, and the next
-stage can't do its job without it.
+Each stage exists because the one before it isn't yet useful on its own, and the one after it can't do its job without it.
 
 ## What I'd build next
 
-The most concrete extension of this architecture is a land-parcel discovery pipeline for an
-emerging asset class such as data centers. That sector has become one of the most active areas
-of commercial real estate activity, driven by a genuine land rush — developers and operators are
-racing to secure sites with the specific combination of power availability, fiber access, water,
-and zoning that this kind of development requires, and suitable parcels are becoming scarce
-faster than firms can identify them internally. An internal parcel database only captures what a
-firm already knows about or has been offered; it doesn't surface parcels that meet the criteria
-but haven't crossed the firm's desk yet.
+The most concrete extension of this architecture is a land-parcel discovery pipeline for an emerging asset class such as data centers. That sector has become one of the most active areas of commercial real estate activity, driven by a genuine land rush — developers and operators are racing to secure sites with the specific combination of power availability, fiber access, water, and zoning that this kind of development requires, and suitable parcels are becoming scarce faster than firms can identify them internally.
 
-This pipeline would apply the same four-stage shape used here to a different pairing of
-sources: an internal parcel database matched against public government and county zoning
-records, GIS data, and utility infrastructure filings. Ingestion would normalize parcel
-identifiers and zoning codes across those sources the same way records are normalized here.
-Entity resolution would match parcels by geographic overlap and legal description rather than
-by address string similarity, since public zoning records often use plat and lot numbers
-instead of street addresses. Opportunity detection would apply rules specific to this use case —
-minimum parcel size, zoning designation, proximity to power substations and fiber routes,
-availability status — to rank parcels worth pursuing. Governance would still apply, scoping
-which internal teams see raw parcel data versus a filtered shortlist.
+This pipeline would apply the same shape used here to a different pairing of sources: an internal parcel database matched against public government and county zoning records, GIS data, and utility infrastructure filings. Ingestion would normalize parcel identifiers and zoning codes the same way records are normalized here. Entity resolution would match parcels by geographic overlap and legal description rather than address similarity, since public zoning records often use plat and lot numbers instead of street addresses. Opportunity detection would apply rules specific to this use case — minimum parcel size, zoning designation, proximity to power substations and fiber routes — to rank parcels worth pursuing. Governance would apply exactly as it does now, unchanged, because it was never coupled to what the pipeline processes in the first place.
 
-The point of describing rather than building this: the underlying architecture doesn't change
-to support it, only the source adapters and the domain-specific rules in stage 3 do. That's the
-strongest evidence that the pattern built here generalizes beyond the one opportunity type it
-was built and tested against.

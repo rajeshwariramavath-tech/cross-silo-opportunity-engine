@@ -1,1 +1,2 @@
-"""Stage 4 — governance & access control: role-scoped delivery with full field lineage."""
+"""Governance & access control: the boundary around the three processing stages, enforced at
+serve time - role-scoped delivery with full field lineage."""

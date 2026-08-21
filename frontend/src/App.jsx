@@ -12,7 +12,7 @@ const TABS = [
   { number: 1, label: "Ingestion" },
   { number: 2, label: "Entity Resolution" },
   { number: 3, label: "Opportunity Detection" },
-  { number: 4, label: "Governance" },
+  { number: 4, label: "Access Data" },
 ];
 
 const initialStage = { status: "idle", error: null };
@@ -105,7 +105,7 @@ export default function App() {
         <h1>Cross-Silo Opportunity Engine</h1>
         <p>
           Connecting sales and debt records across siloed commercial real estate lines of
-          business - one pipeline, four stages, walked step by step.
+          business - one pipeline, three stages plus governed access, walked step by step.
         </p>
         <div className="rule" />
       </header>
@@ -265,7 +265,7 @@ export default function App() {
 
         {activeTab === 4 && (
           <StageCard
-            title="Governance & Access Control"
+            title="Access Data"
             description="Runs the full pipeline end to end and scopes the opportunity list to the role you pick - the same data, rendered differently."
             status={stage4.status}
             error={stage4.error}
