@@ -68,11 +68,11 @@ Treating governance as a boundary around all three stages, is the more honest mo
 
 Concretely, this is enforced by two things living in the storage layer, not in any one stage:
 
-### Roles & Permissions
+## Roles & Permissions
  
   a role-to-field mapping, defined once, read every time a result is served. A broker's view and a financing view of the same opportunity differ by which fields are visible, not by which opportunities exist; property management, sitting outside both lines of business, gets the minimal signal that an opportunity exists with the counterparty and dollar figures withheld.
   
-### Lineage 
+## Lineage 
 
 Trace from any field in a served result back to the exact source record it came from, on both the Sales and Debt side where a field was derived from both.
 

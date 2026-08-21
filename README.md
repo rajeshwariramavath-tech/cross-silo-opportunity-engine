@@ -1,12 +1,10 @@
 # cross-silo-opportunity-engine
 
-[![CI](https://github.com/rajeshwariramavath-tech/cross-silo-opportunity-engine/actions/workflows/ci.yml/badge.svg)](https://github.com/rajeshwariramavath-tech/cross-silo-opportunity-engine/actions)
-
 Connects data across siloed commercial real estate lines of business so cross-business
 opportunities surface automatically, without giving anyone unrestricted access to sensitive
 data they shouldn't see.
 
-**Architecture:** [docs/architecture.md](docs/architecture.md)
+**Architecture:** ![Architecture diagram](docs/Architecture_Diagram.png)
 
 The three processing stages - ingestion & normalization, entity resolution, and opportunity
 detection - run end to end through `pipeline.py`, with governance & access control applied as
@@ -102,6 +100,7 @@ default port.
 ### Run tests
 
 ```
+pip install -e ".[dev,llm,api]"
 pytest
 ```
 
